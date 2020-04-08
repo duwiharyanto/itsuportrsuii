@@ -4,7 +4,7 @@ Programer haryanto.duwi
 
 Email haryanto.duwi@gmail.com
 
-Aplikasi Pendataan Warga
+Aplikasi Pencatatan Surat Rekam Medis
 
 
 [![y8OYTq.png](https://b.imge.to/2020/03/28/y8OYTq.png)](https://imge.to/i/y8OYTq)
@@ -17,8 +17,10 @@ Aplikasi Pendataan Warga
 ***Menu***
 ====
 - Dashboard
-- Registrasi
-  - Detail Registrasi
+- Surat
+  - Surat Sakit
+  - Surat Sehat
+  - Surat Hamil
 - Setting
   - User
   - Level
