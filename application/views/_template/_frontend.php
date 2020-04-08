@@ -12,17 +12,19 @@
     <title><?=ucwords($global->headline)?></title>
     <link href="<?=base_url()?>/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?=base_url()?>/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="<?=base_url()?>/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <!-- Wizard CSS -->
+    <link href="<?=base_url()?>/plugins/bower_components/jquery-wizard-master/css/wizard.css" rel="stylesheet">
     <link href="<?=base_url()?>/plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css" rel="stylesheet">
-    <link href="<?=base_url()?>/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />    
+    <link href="<?=base_url()?>/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url()?>/plugins/bower_components/datatables/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
-    <link href="<?=base_url()?>/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <link href="<?=base_url()?>/plugins/css/animate.css" rel="stylesheet">
-    <link href="<?=base_url()?>/plugins/css/style.css" rel="stylesheet"> 
+    <link href="<?=base_url()?>/plugins/css/style.css" rel="stylesheet">
     <link href="<?=base_url()?>/plugins/css/colors/blue.css" id="theme" rel="stylesheet">
-       
     <link href="<?=base_url()?>/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
-    <!-- <script src="http://www.w3schools.com/lib/w3data.js"></script> -->
+    <link href="<?=base_url()?>/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+
     <!-- jQuery -->
     <script src="<?=base_url()?>/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -30,6 +32,8 @@
     <script src="<?=base_url()?>/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
     <script src="<?=base_url()?>/plugins/js/jquery.validate.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="<?=base_url()?>/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <!-- Datatables -->
     <script src="<?=base_url()?>/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/datatables/dataTables.buttons.min.js"></script>
@@ -37,8 +41,9 @@
     <script src="<?=base_url()?>/plugins/bower_components/datatables/jszip.min.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/datatables/pdfmake.min.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/datatables/vfs_fonts.js"></script>
+    <script src="<?=base_url()?>/plugins/bower_components/datatables/buttons.colVis.min.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/datatables/buttons.html5.min.js"></script>
-    <script src="<?=base_url()?>/plugins/bower_components/datatables/buttons.print.min.js"></script>  
+    <script src="<?=base_url()?>/plugins/bower_components/datatables/buttons.print.min.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/custom-select/custom-select.min.js" type="text/javascript"></script>
     <script src="<?=base_url()?>/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
     <!-- Sweet-Alert  -->
@@ -46,10 +51,19 @@
     <!-- Sparkline chart JavaScript -->
     <script src="<?=base_url()?>/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js"></script>
-    <script src="<?=base_url()?>/plugins/bower_components/skycons/skycons.js"></script>   
+    <script src="<?=base_url()?>/plugins/bower_components/skycons/skycons.js"></script>
     <!--Counter js -->
     <script src="<?=base_url()?>/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+    <!-- Chart JS -->
+    <script src="<?=base_url()?>/plugins/bower_components/Chart.js/Chart.min.js"></script>
+    <!-- Form Wizard JavaScript -->
+    <script src="<?=base_url()?>/plugins/bower_components/jquery-wizard-master/dist/jquery-wizard.min.js"></script>
+    <!-- FormValidation -->
+    <link rel="stylesheet" href="<?=base_url()?>/plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.css">
+    <!-- FormValidation plugin and the class supports validating Bootstrap form -->
+    <script src="<?=base_url()?>/plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.js"></script>
+    <script src="<?=base_url()?>/plugins/bower_components/jquery-wizard-master/libs/formvalidation/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -76,15 +90,6 @@
                 </div>
                 <!-- /Logo -->
                 <!-- Search input and Toggle icon -->
-                <ul class="nav navbar-top-links navbar-left hidden-xs">
-                    <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
-                    <li>
-                        <form role="search" class="app-search hidden-xs">
-                            <input type="text" placeholder="Search..." class="form-control">
-                            <a href=""><i class="fa fa-search"></i></a>
-                        </form>
-                    </li>
-                </ul>
                 <!-- This is the message dropdown -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li class="dropdown">

@@ -54,4 +54,4 @@ $route['404_override'] = 'Notfound';
 $route['translate_uri_dashes'] = FALSE;
 
 //FRONTEND PUBLIC
-$route['registrasi'] = 'Public/Registrasi';
+$route['berkas'] = 'Public/Berkas';

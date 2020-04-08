@@ -124,6 +124,64 @@ class Duwi {
 		}
 		return $bulan;		
 	}
+	public function bulannama($param){
+		switch ($param) {
+			case '1':
+				$bulan='januari';
+				break;
+			case '2':
+				$bulan='fabruari';
+				break;	
+			case '3':
+				$bulan='maret';
+				break;
+			case '4':
+				$bulan='april';
+				break;
+			case '5':
+				$bulan='mei';
+				break;	
+			case '6':
+				$bulan='juni';
+				break;
+			case '7':
+				$bulan='juli';
+				break;
+			case '8':
+				$bulan='agustus';
+				break;
+			case '9':
+				$bulan='september';
+				break;
+			case '10':
+				$bulan='oktober';
+				break;
+			case '11':
+				$bulan='november';
+				break;
+			case '12':
+				$bulan='desember';
+				break;						
+			default:
+				$bulan='_';
+				break;
+		}
+		return $bulan;		
+	}	
+	public function nomorskm($param){
+		//01.004/SMA-SM/V/2018
+		//$nourut=$this->db->query("SELECT RIGHT(notest,4) AS kode from jual ORDER BY kode DESC LIMIT 1");
+		$bulan=$this->bulanromawi($param['bulan']);
+		$delimiter='/';
+		if($param['nomor']<>0){
+			$nourut=intval($param['nomor'])+1;
+		}else{
+			$nourut=1;
+		}
+		$padnourut=str_pad($nourut,4,'0',STR_PAD_LEFT);
+		$nomorsurat=$padnourut.$delimiter.$param['kodeberkas'].$delimiter.$param['instansi'].$delimiter.$bulan.$delimiter.$param['tahun'];
+		return $nomorsurat;
+	}
 	public function nomorsurat($param){
 		//01.004/SMA-SM/V/2018
 		//$nourut=$this->db->query("SELECT RIGHT(notest,4) AS kode from jual ORDER BY kode DESC LIMIT 1");

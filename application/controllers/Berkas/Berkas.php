@@ -71,7 +71,7 @@ class Berkas extends CI_Controller {
 	public function index()
 	{
 		$global_set=array(
-			'headline'=>'berkas upload',
+			'headline'=>'pencarian',
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
