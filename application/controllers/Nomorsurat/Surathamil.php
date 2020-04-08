@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as writer;
 
-class Suratsehat extends CI_Controller {
+class Surathamil extends CI_Controller {
 // class Registrasi extends Core {
 	public function __construct(){
 		parent::__construct();
@@ -24,11 +24,11 @@ class Suratsehat extends CI_Controller {
 		$this->duwi->cekadmin();
 	}
 	//VARIABEL
-	private $master_tabel="suratsehat"; //Mendefinisikan Nama Tabel
-	private $id="suratsehat_id";	//Menedefinisaikan Nama Id Tabel
-	private $kodeberkas="B.2";
-	private $default_url="Nomorsurat/Suratsehat/"; //Mendefinisikan url controller
-	private $default_view="Nomorsurat/Suratsehat/"; //Mendefinisiakn defaul view
+	private $master_tabel="surathamil"; //Mendefinisikan Nama Tabel
+	private $id="surathamil_id";	//Menedefinisaikan Nama Id Tabel
+	private $kodeberkas="B.14";
+	private $default_url="Nomorsurat/Surathamil/"; //Mendefinisikan url controller
+	private $default_view="Nomorsurat/Surathamil/"; //Mendefinisiakn defaul view
 	private $view="_template/_backend"; //Mendefinisikan Tamplate Root
 	private $path='./upload/berkas/';
 	private $pathformatimport='./template/';
@@ -39,11 +39,11 @@ class Suratsehat extends CI_Controller {
 			$overwriteview=$data['overwriteview'];
 			$menu_submenu=$data['menu_submenu'];
 		}else{
-			$overwriteview="views/Nomorsurat/Nomorsurat/index.php";
-			$menu_submenu="surat_sehat";
+			$overwriteview="views/Nomorsurat/Surathamil/index.php";
+			$menu_submenu="surat_hamil";
 		}
 		$data=array(
-			'menu'=>'master',//Seting menu yang aktif
+			'menu'=>'surat',//Seting menu yang aktif
 			'menu_submenu'=>$menu_submenu,
 			'headline'=>$data['headline'], //Deskripsi Menu
 			'url'=>$data['url'], //Deskripsi URL yang dilewatkan dari function
@@ -72,23 +72,21 @@ class Suratsehat extends CI_Controller {
 	public function index()
 	{
 		$global_set=array(
-			'headline'=>'surat keterangan sehat',
+			'headline'=>'surat keterangan hamil',
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
 
 		//CEK SUBMIT DATA
-		if($this->input->post('nomorsurat_norm')){
+		if($this->input->post('surathamil_norm')){
 			//PROSES SIMPAN
 			$data=array(
-				'nomorsurat_nomor'=>$this->input->post('nomorsurat_nomor'),
-				'nomorsurat_norm'=>$this->input->post('nomorsurat_norm'),
-				'nomorsurat_nama'=>$this->input->post('nomorsurat_nama'),
-				'nomorsurat_unit'=>$this->input->post('nomorsurat_unit'),
-				'nomorsurat_ijin'=>$this->input->post('nomorsurat_ijin'),
-				'nomorsurat_tanggal'=>date('Y-m-d',strtotime($this->input->post('nomorsurat_tanggal'))),
-				'nomorsurat_bulan'=>$this->duwi->bulannama(str_replace('0','',date('m',strtotime($this->input->post('nomorsurat_tanggal'))))),
-				'nomorsurat_iduser'=>$this->session->userdata('user_id'),
+				'surathamil_nomor'=>$this->input->post('surathamil_nomor'),
+				'surathamil_norm'=>$this->input->post('surathamil_norm'),
+				'surathamil_nama'=>$this->input->post('surathamil_nama'),
+				'surathamil_tanggal'=>date('Y-m-d',strtotime($this->input->post('surathamil_tanggal'))),
+				'surathamil_bulan'=>$this->duwi->bulannama(str_replace('0','',date('m',strtotime($this->input->post('surathamil_tanggal'))))),
+				'surathamil_iduser'=>$this->session->userdata('user_id'),
 			);
 			########################################################
 			// $file='berkas_file';
@@ -132,9 +130,9 @@ class Suratsehat extends CI_Controller {
 		$global=$this->global_set($global_set);
 		$query=array(
 			'select'=>'a.*,b.user_nama',
-			'tabel'=>'suratsehat a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratsehat_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.suratsehat_id','orderby'=>'DESC'),
+			'tabel'=>'surathamil a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.surathamil_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.surathamil_id','orderby'=>'DESC'),
 		);	
 		$data=array(
 			'global'=>$global,
@@ -149,13 +147,11 @@ class Suratsehat extends CI_Controller {
 		);
 		$global=$this->global_set($global_set);
 		$id=$this->input->post('id');
-		if($this->input->post('nomorsurat_norm')){
+		if($this->input->post('surathamil_norm')){
 			//PROSES SIMPAN
 			$data=array(
-				'nomorsurat_norm'=>$this->input->post('nomorsurat_norm'),
-				'nomorsurat_nama'=>$this->input->post('nomorsurat_nama'),
-				'nomorsurat_unit'=>$this->input->post('nomorsurat_unit'),
-				'nomorsurat_ijin'=>$this->input->post('nomorsurat_ijin'),
+				'surathamil_norm'=>$this->input->post('surathamil_norm'),
+				'surathamil_nama'=>$this->input->post('surathamil_nama'),
 			);
 			####################################################
 			// $file='berkas_file';
@@ -210,11 +206,13 @@ class Suratsehat extends CI_Controller {
 			'headline'=>'tambah data',
 			'url'=>$this->default_url, //AKAN DIREDIRECT KE INDEX
 		);
+		$nomor=0;
 		$global=$this->global_set($global_set);
-		$db_nourut=$this->Crud->hardcode("SELECT LEFT(suratsehat_nomor,4) AS kode from suratsehat ORDER BY suratkode_nomor DESC LIMIT 1")->row();
+		$db_nourut=$this->Crud->hardcode("SELECT LEFT(surathamil_nomor,4) AS kode from surathamil ORDER BY surathamil_nomor DESC LIMIT 1")->row();
+		if($db_nourut) $nomor=$db_nourut->kode;
 		$ar_noskm=[
 			'bulan'=>str_replace('0','',date('m')),
-			'nomor'=>$db_nourut->kode,
+			'nomor'=>$nomor,
 			'kodeberkas'=>$this->kodeberkas,
 			'instansi'=>'RSUII',
 			'tahun'=>date('Y')
@@ -267,15 +265,15 @@ class Suratsehat extends CI_Controller {
 	}	
 	public function cetak($nama=null,$norumah=null){
 		$global_set=array(
-			'headline'=>'Daftar Nomor Surat',
+			'headline'=>'REKAPAN PELAYANAN UNIT REKAM MEDIS <BR> Surat Keterangan Hamil',
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
 		$query=array(
 			'select'=>'a.*,b.user_nama',
-			'tabel'=>'nomorsurat a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.nomorsurat_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.nomorsurat_id','orderby'=>'DESC'),
+			'tabel'=>'surathamil a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.surathamil_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.surathamil_id','orderby'=>'DESC'),
 		);
 		$data=array(
 			'global'=>$global,
