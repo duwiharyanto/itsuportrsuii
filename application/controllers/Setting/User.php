@@ -392,4 +392,25 @@ class User extends CI_Controller {
 		];
 		$this->prosescetak($cetak);
 	}	
+	public function export()
+	{
+        $spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet(); // instantiate Spreadsheet
+        
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // manually set table data value
+        $sheet->setCellValue('A1', 'Gipsy Danger'); 
+        $sheet->setCellValue('A2', 'Gipsy Avenger');
+        $sheet->setCellValue('A3', 'Striker Eureka');
+        
+        $writer = new writer($spreadsheet); // instantiate Xlsx
+ 
+        $filename = 'list-of-jaegers'; // set filename for excel file to be exported
+ 
+        header('Content-Type: application/vnd.ms-excel'); // generate excel file
+        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');	// download file
+	}	
 }

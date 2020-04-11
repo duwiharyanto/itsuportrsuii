@@ -288,6 +288,94 @@ class Surathamil extends CI_Controller {
 			'kertas'=>'A4-l',
 		];
 		$this->duwi->prosescetak($cetak);
-	}	
+	}
+	public function exportexcell()
+	{
+		$filename="Surat keterangan hamil";
+		$query=array(
+			'select'=>'a.*,b.user_nama',
+			'tabel'=>'surathamil a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.surathamil_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.surathamil_id','orderby'=>'DESC'),
+		);
+		$dt=$this->Crud->join($query)->result();
+		$spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet;
+		$spreadsheet->setActiveSheetIndex(0)
+		->mergeCells('A1:E1');
+		$spreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A1','Surat Keterangan Hamil');		
+		$spreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A2', 'No')
+		->setCellValue('B2', 'Nomor Surat')
+		->setCellValue('C2', 'Bulan')
+		->setCellValue('D2', 'No RM')
+		->setCellValue('E2', 'Nama');
+
+		$kolom = 3;
+		$nomor = 1;
+		foreach($dt as $row) {
+			$spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A' . $kolom, $nomor)
+			->setCellValue('B' . $kolom, $row->surathamil_nomor)
+			->setCellValue('C' . $kolom, $row->surathamil_bulan)
+			->setCellValue('D' . $kolom, $row->surathamil_norm)
+			->setCellValue('E' . $kolom, $row->surathamil_nama);
+			$kolom++;
+			$nomor++;
+
+		}
+
+		//$writer = new Xlsx($spreadsheet);
+		$writer = new writer($spreadsheet);
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="'.$filename.'.xlsx"');
+		header('Cache-Control: max-age=0');
+		$writer->save('php://output');
+	}
+	public function importexcell(){
+		// echo "import";
+		// exit();
+		$file='fileimport';
+		$insert=false; //DEFAULT
+		$file_mimes = array('application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		if(isset($_FILES[$file]['name']) && in_array($_FILES[$file]['type'], $file_mimes)) {
+		    $arr_file = explode('.', $_FILES[$file]['name']);
+		    $extension = end($arr_file);
+		    if('csv' == $extension) {
+		        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+		    } else {
+		        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+		    }
+		    $spreadsheet = $reader->load($_FILES[$file]['tmp_name']);
+		    $sheetData = $spreadsheet->getActiveSheet()->toArray();
+		    $data=array();
+			for($i = 1;$i < count($sheetData);$i++)
+			{
+		    	array_push($data, array(
+					'surathamil_nomor'=>$sheetData[$i]['1'],
+					'surathamil_norm'=>$sheetData[$i]['3'],
+					'surathamil_nama'=>$sheetData[$i]['4'],
+					'surathamil_tanggal'=>date('Y-m-d'),
+					'surathamil_bulan'=>$sheetData[$i]['2'],
+					'surathamil_iduser'=>$this->session->userdata('user_id'),
+		    	));
+		    }
+			$query=array(
+				'data'=>$this->security->xss_clean($data),
+				'tabel'=>$this->master_tabel,
+			);
+			$insert=$this->Crud->insert_multiple($query);
+		}
+		if($insert){
+			$this->session->set_flashdata('success','simpan berhasil');
+			//$dt['success']='input data berhasil';
+		}else{
+			$this->session->set_flashdata('error','simpan gagal');
+			//$dt['error']='input data error';
+		}
+		//return $this->output->set_output(json_encode($dt));
+		redirect(site_url($this->default_url));
+	}
 }
 		

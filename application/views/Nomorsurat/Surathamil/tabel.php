@@ -15,6 +15,8 @@
                       <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="fa fa-upload" aria-hidden="true"></i> Import</a></li>
                       <?php endif;?>
                       <li class="divider" role="presentation"></li>    
+                      <li role="presentation"><a href="javascript:void(0)" data-toggle="modal" data-target="#importdata" role="menuitem"><i class="fa fa-upload" aria-hidden="true"></i> Import Excel</a></li>
+                      <li role="presentation"><a href="<?=site_url($global->url.'exportexcell')?>" role="menuitem"><i class="fa fa-download" aria-hidden="true"></i> Export Excel</a></li>
                       <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="fa fa-gears" aria-hidden="true"></i> Settings</a></li>                   
                   </ul>
               </div>                 
@@ -56,6 +58,29 @@
         </div>
       </div>        
     </div>                    
+</div>
+<div id="importdata" class="modal fade" tabindex="-1" role="dialog" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Import Data</h4>
+      </div>
+      <form  class="formaction" method="POST" action="<?= base_url($global->url.'importexcell')?>"  enctype="multipart/form-data">
+      <div class="modal-body">
+          <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">        
+          <div class="form-group">
+            <label for="message-text" class="control-label">File</label>
+            <input type="file" name="fileimport" class="form-control">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger waves-effect waves-light">Import</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
     $('#example23').DataTable({
