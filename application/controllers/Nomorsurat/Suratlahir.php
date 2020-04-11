@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as writer;
 
-class Suratsehat extends CI_Controller {
+class Suratlahir extends CI_Controller {
 // class Registrasi extends Core {
 	public function __construct(){
 		parent::__construct();
@@ -24,11 +24,12 @@ class Suratsehat extends CI_Controller {
 		$this->duwi->cekadmin();
 	}
 	//VARIABEL
-	private $master_tabel="suratsehat"; //Mendefinisikan Nama Tabel
-	private $id="suratsehat_id";	//Menedefinisaikan Nama Id Tabel
+	private $master_tabel="suratlahir"; //Mendefinisikan Nama Tabel
+	private $id="suratlahir_id";	//Menedefinisaikan Nama Id Tabel
+	private $filename='surat keterangan lahir';
 	private $kodeberkas="B.2";
-	private $default_url="Nomorsurat/Suratsehat/"; //Mendefinisikan url controller
-	private $default_view="Nomorsurat/Suratsehat/"; //Mendefinisiakn defaul view
+	private $default_url="Nomorsurat/Suratlahir/"; //Mendefinisikan url controller
+	private $default_view="Nomorsurat/Suratlahir/"; //Mendefinisiakn defaul view
 	private $view="_template/_backend"; //Mendefinisikan Tamplate Root
 	private $path='./upload/berkas/';
 	private $pathformatimport='./template/';
@@ -39,8 +40,8 @@ class Suratsehat extends CI_Controller {
 			$overwriteview=$data['overwriteview'];
 			$menu_submenu=$data['menu_submenu'];
 		}else{
-			$overwriteview="views/Nomorsurat/Nomorsurat/index.php";
-			$menu_submenu="surat_sehat";
+			$overwriteview="views/Nomorsurat/Suratlahir/index.php";
+			$menu_submenu="surat_lahir";
 		}
 		$data=array(
 			'menu'=>'master',//Seting menu yang aktif
@@ -55,7 +56,7 @@ class Suratsehat extends CI_Controller {
 			'delete'=>true,
 			'download'=>false,
 			'tambah'=>false,
-			'import'=>false,
+			'import'=>true,
 			'qrcode'=>false,
 
 		);
@@ -72,23 +73,24 @@ class Suratsehat extends CI_Controller {
 	public function index()
 	{
 		$global_set=array(
-			'headline'=>'surat keterangan sehat',
+			'headline'=>'surat keterangan lahir',
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
 
 		//CEK SUBMIT DATA
-		if($this->input->post('nomorsurat_norm')){
+		if($this->input->post('suratlahir_norm')){
 			//PROSES SIMPAN
 			$data=array(
-				'nomorsurat_nomor'=>$this->input->post('nomorsurat_nomor'),
-				'nomorsurat_norm'=>$this->input->post('nomorsurat_norm'),
-				'nomorsurat_nama'=>$this->input->post('nomorsurat_nama'),
-				'nomorsurat_unit'=>$this->input->post('nomorsurat_unit'),
-				'nomorsurat_ijin'=>$this->input->post('nomorsurat_ijin'),
-				'nomorsurat_tanggal'=>date('Y-m-d',strtotime($this->input->post('nomorsurat_tanggal'))),
-				'nomorsurat_bulan'=>$this->duwi->bulannama(str_replace('0','',date('m',strtotime($this->input->post('nomorsurat_tanggal'))))),
-				'nomorsurat_iduser'=>$this->session->userdata('user_id'),
+				'suratlahir_nomor'=>$this->input->post('suratlahir_nomor'),
+				'suratlahir_norm'=>$this->input->post('suratlahir_norm'),
+				'suratlahir_nama'=>$this->input->post('suratlahir_nama'),
+				'suratlahir_tanggal'=>date('Y-m-d',strtotime($this->input->post('suratlahir_tanggal'))),
+				'suratlahir_bulan'=>$this->duwi->bulannama(str_replace('0','',date('m',strtotime($this->input->post('suratlahir_tanggal'))))),
+				'suratlahir_iduser'=>$this->session->userdata('user_id'),
+				'suratlahir_jeniskelamin'=>$this->input->post('suratlahir_jeniskelamin'),
+				'suratlahir_namaayah'=>$this->input->post('suratlahir_namaayah'),
+				'suratlahir_tgllahir'=>date('Y-m-d',strtotime($this->input->post('suratlahir_tgllahir'))),
 			);
 			########################################################
 			// $file='berkas_file';
@@ -132,9 +134,9 @@ class Suratsehat extends CI_Controller {
 		$global=$this->global_set($global_set);
 		$query=array(
 			'select'=>'a.*,b.user_nama',
-			'tabel'=>'suratsehat a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratsehat_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.suratsehat_id','orderby'=>'DESC'),
+			'tabel'=>'suratlahir a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratlahir_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.suratlahir_id','orderby'=>'DESC'),
 		);	
 		$data=array(
 			'global'=>$global,
@@ -149,13 +151,14 @@ class Suratsehat extends CI_Controller {
 		);
 		$global=$this->global_set($global_set);
 		$id=$this->input->post('id');
-		if($this->input->post('nomorsurat_norm')){
+		if($this->input->post('suratlahir_norm')){
 			//PROSES SIMPAN
 			$data=array(
-				'nomorsurat_norm'=>$this->input->post('nomorsurat_norm'),
-				'nomorsurat_nama'=>$this->input->post('nomorsurat_nama'),
-				'nomorsurat_unit'=>$this->input->post('nomorsurat_unit'),
-				'nomorsurat_ijin'=>$this->input->post('nomorsurat_ijin'),
+				'suratlahir_norm'=>$this->input->post('suratlahir_norm'),
+				'suratlahir_nama'=>$this->input->post('suratlahir_nama'),
+				'suratlahir_jeniskelamin'=>$this->input->post('suratlahir_jeniskelamin'),
+				'suratlahir_namaayah'=>$this->input->post('suratlahir_namaayah'),
+				'suratlahir_tgllahir'=>date('Y-m-d',strtotime($this->input->post('suratlahir_tgllahir'))),				
 			);
 			####################################################
 			// $file='berkas_file';
@@ -210,11 +213,13 @@ class Suratsehat extends CI_Controller {
 			'headline'=>'tambah data',
 			'url'=>$this->default_url, //AKAN DIREDIRECT KE INDEX
 		);
+		$nourut=0;
 		$global=$this->global_set($global_set);
-		$db_nourut=$this->Crud->hardcode("SELECT LEFT(suratsehat_nomor,4) AS kode from suratsehat ORDER BY suratkode_nomor DESC LIMIT 1")->row();
+		$db_nourut=$this->Crud->hardcode("SELECT LEFT(suratlahir_nomor,4) AS kode from suratlahir ORDER BY suratlahir_nomor DESC LIMIT 1")->row();
+		if($db_nourut) $nourut=$db_nourut->kode;
 		$ar_noskm=[
 			'bulan'=>str_replace('0','',date('m')),
-			'nomor'=>$db_nourut->kode,
+			'nomor'=>$nourut,
 			'kodeberkas'=>$this->kodeberkas,
 			'instansi'=>'RSUII',
 			'tahun'=>date('Y')
@@ -267,15 +272,15 @@ class Suratsehat extends CI_Controller {
 	}	
 	public function cetak($nama=null,$norumah=null){
 		$global_set=array(
-			'headline'=>'Daftar Nomor Surat',
+			'headline'=>$this->filename,
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
 		$query=array(
 			'select'=>'a.*,b.user_nama',
-			'tabel'=>'nomorsurat a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.nomorsurat_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.nomorsurat_id','orderby'=>'DESC'),
+			'tabel'=>'suratlahir a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratlahir_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.suratlahir_id','orderby'=>'DESC'),
 		);
 		$data=array(
 			'global'=>$global,
@@ -290,6 +295,103 @@ class Suratsehat extends CI_Controller {
 			'kertas'=>'A4-l',
 		];
 		$this->duwi->prosescetak($cetak);
-	}	
+	}
+	public function exportexcell()
+	{
+		$filename=$this->filename;
+		$query=array(
+			'select'=>'a.*,b.user_nama',
+			'tabel'=>'suratlahir a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratlahir_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.suratlahir_id','orderby'=>'DESC'),
+		);
+		$dt=$this->Crud->join($query)->result();
+		$spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet;
+		$spreadsheet->setActiveSheetIndex(0)
+		->mergeCells('A1:E1');
+		$spreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A1',$this->filename);		
+		$spreadsheet->setActiveSheetIndex(0)
+		->setCellValue('A2', 'No')
+		->setCellValue('B2', 'Nomor Surat')
+		->setCellValue('C2', 'Bulan')
+		->setCellValue('D2', 'No RM')
+		->setCellValue('E2', 'Nama')
+		->setCellValue('F2', 'Jenis Kelamin')
+		->setCellValue('G2', 'Tgl Lahir')
+		->setCellValue('H2', 'Ayah');
+
+		$kolom = 3;
+		$nomor = 1;
+		foreach($dt as $row) {
+			$spreadsheet->setActiveSheetIndex(0)
+			->setCellValue('A' . $kolom, $nomor)
+			->setCellValue('B' . $kolom, $row->suratlahir_nomor)
+			->setCellValue('C' . $kolom, $row->suratlahir_bulan)
+			->setCellValue('D' . $kolom, $row->suratlahir_norm)
+			->setCellValue('E' . $kolom, $row->suratlahir_nama)
+			->setCellValue('F' . $kolom, $row->suratlahir_jeniskelamin==1 ? 'Laki-laki':'Perempuan')
+			->setCellValue('G' . $kolom, date('d-m-Y',strtotime($row->suratlahir_tgllahir)))
+			->setCellValue('H' . $kolom, $row->suratlahir_namaayah);
+			$kolom++;
+			$nomor++;
+
+		}
+
+		//$writer = new Xlsx($spreadsheet);
+		$writer = new writer($spreadsheet);
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
+		header('Cache-Control: max-age=0');
+		$writer->save('php://output');
+	}
+	public function importexcell(){
+		// echo "import";
+		// exit();
+		$file='fileimport';
+		$insert=false; //DEFAULT
+		$file_mimes = array('application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		if(isset($_FILES[$file]['name']) && in_array($_FILES[$file]['type'], $file_mimes)) {
+		    $arr_file = explode('.', $_FILES[$file]['name']);
+		    $extension = end($arr_file);
+		    if('csv' == $extension) {
+		        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+		    } else {
+		        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+		    }
+		    $spreadsheet = $reader->load($_FILES[$file]['tmp_name']);
+		    $sheetData = $spreadsheet->getActiveSheet()->toArray();
+		    $data=array();
+			for($i = 2;$i < count($sheetData);$i++)
+			{
+		    	array_push($data, array(
+					'suratlahir_nomor'=>$sheetData[$i]['1'],
+					'suratlahir_norm'=>$sheetData[$i]['3'],
+					'suratlahir_nama'=>$sheetData[$i]['4'],
+					'suratlahir_tanggal'=>date('Y-m-d'),
+					'suratlahir_bulan'=>$sheetData[$i]['2'],
+					'suratlahir_iduser'=>$this->session->userdata('user_id'),
+					'suratlahir_jeniskelamin'=>$sheetData[$i]['5'],
+					'suratlahir_namaayah'=>$sheetData[$i]['7'],
+					'suratlahir_tgllahir'=>date('Y-m-d',strtotime($sheetData[$i]['6'])),				
+		    	));
+		    }
+			$query=array(
+				'data'=>$this->security->xss_clean($data),
+				'tabel'=>$this->master_tabel,
+			);
+			$insert=$this->Crud->insert_multiple($query);
+		}
+		if($insert){
+			$this->session->set_flashdata('success','simpan berhasil');
+			//$dt['success']='input data berhasil';
+		}else{
+			$this->session->set_flashdata('error','simpan gagal');
+			//$dt['error']='input data error';
+		}
+		//return $this->output->set_output(json_encode($dt));
+		redirect(site_url($this->default_url));
+	}		
 }
 		

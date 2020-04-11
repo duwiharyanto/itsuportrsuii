@@ -12,34 +12,25 @@
 			  					<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">		      		
 			  					<div class="form-group d-none">
 			  						<label>id</label>
-			  						<input required readonly type="text" name="id" class="hide form-control" title="Harus di isi" value="<?=$data->nomorsurat_id?>">
+			  						<input required readonly type="text" name="id" class="hide form-control" title="Harus di isi" value="<?=$data->suratterbang_id?>">
 			  					</div>													
 								<div class="form-group">
 									<label>Nomor Surat</label>
-									<input readonly required type="text" name="nomorsurat_nomor" class="form-control" title="Harus di isi" value="<?=$data->nomorsurat_nomor?>">
+									<input readonly required type="text" name="suratterbang_nomor" class="form-control" title="Harus di isi" value="<?=$data->suratterbang_nomor?>">
 									<p class="text-danger">Diambil dari data tanggal sekarang <?=date('d-m-Y')?></p>
 								</div>
 								<div class="form-group">
 									<label>Tanggal</label>
-									<input required name="nomorsurat_tanggal" class="form-control datepicker" type="text" value="<?=date('d-m-Y',strtotime($data->nomorsurat_tanggal))?>"></input>
+									<input required name="suratterbang_tanggal" class="form-control datepicker" type="text" value="<?=date('d-m-Y',strtotime($data->suratterbang_tanggal))?>"></input>
 								</div>    
 								<div class="form-group">
 									<label>Nomor RM</label>
-									<input required type="text" name="nomorsurat_norm" class="form-control" title="Harus di isi" value="<?=$data->nomorsurat_norm?>">
+									<input required type="text" name="suratterbang_norm" class="form-control" title="Harus di isi" value="<?=$data->suratterbang_norm?>">
 								</div>
 								<div class="form-group">
 									<label>Nama</label>
-									<input required type="text" name="nomorsurat_nama" class="form-control" title="Harus di isi" value="<?=$data->nomorsurat_nama?>">
-								</div>
-								<div class="form-group">
-									<label>Unit</label>
-									<input required type="text" name="nomorsurat_unit" class="form-control" title="Harus di isi" value="<?=$data->nomorsurat_unit?>">
-								</div>	
-								<div class="form-group">
-									<label>Ijin</label>
-									<input required type="text" name="nomorsurat_ijin" class="form-control" title="Harus di isi" value="<?=$data->nomorsurat_ijin?>">
-									<p class="text-muted">Dalam hari</p>
-								</div>      				      			 
+									<input required type="text" name="suratterbang_nama" class="form-control" title="Harus di isi" value="<?=$data->suratterbang_nama?>">
+								</div>     				      			 
 			  				</div>
 			  			</div>
 			  			<div class="row">

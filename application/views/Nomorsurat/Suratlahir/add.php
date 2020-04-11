@@ -12,30 +12,42 @@
 								<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">		      						
 								<div class="form-group">
 									<label>Nomor Surat</label>
-									<input readonly required type="text" name="nomorsurat_nomor" class="form-control" title="Harus di isi" value="<?=$noskm?>">
+									<input readonly required type="text" name="suratlahir_nomor" class="form-control" title="Harus di isi" value="<?=$noskm?>">
 									<p class="text-danger">Diambil dari data tanggal sekarang <?=date('d-m-Y')?></p>
 								</div>
 								<div class="form-group">
 									<label>Tanggal</label>
-									<input required name="nomorsurat_tanggal" class="form-control datepicker" type="text" value="<?=date('d-m-Y')?>"></input>
+									<input required name="suratlahir_tanggal" class="form-control datepicker" type="text" value="<?=date('d-m-Y')?>"></input>
 								</div>    
 								<div class="form-group">
 									<label>Nomor RM</label>
-									<input required type="text" name="nomorsurat_norm" class="form-control" title="Harus di isi">
+									<input required type="text" name="suratlahir_norm" class="form-control" title="Harus di isi">
 								</div>
 								<div class="form-group">
 									<label>Nama</label>
-									<input required type="text" name="nomorsurat_nama" class="form-control" title="Harus di isi">
+									<input required type="text" name="suratlahir_nama" class="form-control" title="Harus di isi">
 								</div>
 								<div class="form-group">
-									<label>Unit</label>
-									<input required type="text" name="nomorsurat_unit" class="form-control" title="Harus di isi">
-								</div>	
+									<label>Tanggal Lahir</label>
+									<input required name="suratlahir_tgllahir" class="form-control datepicker" type="text" value="<?=date('d-m-Y')?>"></input>
+								</div>
 								<div class="form-group">
-									<label>Ijin</label>
-									<input required type="text" name="nomorsurat_ijin" class="form-control" title="Harus di isi">
-									<p class="text-muted">Dalam hari</p>
-								</div>											 
+									<label>Jenis Kelamin</label>
+				      				<div class="">
+				      					<label style="padding-right: 20px">
+				      						<input required name="suratlahir_jeniskelamin" value="1" type="radio" >
+				      						Laki - laki
+				      					</label>
+				      					<label style="padding-right: 20px">
+				      						<input required required name="suratlahir_jeniskelamin" value="" type="radio">
+				      						Perempuan
+				      					</label>				      					
+				      				</div>
+								</div>
+								<div class="form-group">
+									<label>Nama Ayah</label>
+									<input required name="suratlahir_namaayah" class="form-control" type="text" ></input>
+								</div>																											 
 							</div>
 						</div>
 						<div class="row">

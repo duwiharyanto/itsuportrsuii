@@ -22,13 +22,11 @@
 <table width="100%" border="1" cellpadding="5" cellspacing="0">
     <thead>
       <tr >
-        <th width="8%">No</th>
-        <th width="30%">Nomo Surat</th>
-        <th width="15%">Bulan</th>
-        <th width="">No RM</th>
-        <th width="15%">Nama</th>
-        <th >Unit</th>
-        <th width="15%">Ijin</th>
+        <th >No</th>
+        <th >Nomo Surat</th>
+        <th >Bulan</th>
+        <th >No RM</th>
+        <th >Nama</th>
       </tr>
     </thead>
     <tbody>
@@ -36,12 +34,10 @@
       <?php foreach($data AS $row):?>
       <tr>
         <td><?=$i?></td>
-        <td><b><i><?=$row->nomorsurat_nomor?></i></b><br><small class="text-danger">Disimpan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?></small></td>
-        <td><?=ucwords($row->nomorsurat_bulan)?></td>
-        <td><?=ucwords($row->nomorsurat_norm)?></td>
-        <td><?=ucwords($row->nomorsurat_nama)?></td>
-        <td><?=ucwords($row->nomorsurat_unit)?></td>
-        <td><?=ucwords($row->nomorsurat_ijin).' Hari'?></td>
+        <td><?=$row->suratterbang_nomor?><br><small class="text-danger">Disimpan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?></small></td>
+        <td><?=ucwords($row->suratterbang_bulan)?></td>
+        <td><?=ucwords($row->suratterbang_norm)?></td>
+        <td><?=ucwords($row->suratterbang_nama)?></td>
       </tr>
     <?php $i++;?>  
     <?php endforeach;?>
@@ -52,14 +48,5 @@
     <td  align="right"><i>Dicetak oleh sistem</i></td>
   </tr>
 </table> 
-<table width="100%" style="margin-top: 100px">
-  <tr>
-    <td width="50%"></td>
-    <td width="50%" align="center">
-    <p> Disahkan, <?=date('d-m-Y')?></p><br><br><br><br>
-    <p style="margin-top: 50px"> <?=ucwords($atributsistem->setting_namapemilik)?></p>
-    </td>
-  </tr>
-</table>
 </body>
 </html>

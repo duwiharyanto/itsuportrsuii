@@ -12,29 +12,20 @@
 								<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">		      						
 								<div class="form-group">
 									<label>Nomor Surat</label>
-									<input readonly required type="text" name="nomorsurat_nomor" class="form-control" title="Harus di isi" value="<?=$noskm?>">
+									<input readonly required type="text" name="suratterbang_nomor" class="form-control" title="Harus di isi" value="<?=$noskm?>">
 									<p class="text-danger">Diambil dari data tanggal sekarang <?=date('d-m-Y')?></p>
 								</div>
 								<div class="form-group">
 									<label>Tanggal</label>
-									<input required name="nomorsurat_tanggal" class="form-control datepicker" type="text" value="<?=date('d-m-Y')?>"></input>
+									<input required name="suratterbang_tanggal" class="form-control datepicker" type="text" value="<?=date('d-m-Y')?>"></input>
 								</div>    
 								<div class="form-group">
 									<label>Nomor RM</label>
-									<input required type="text" name="nomorsurat_norm" class="form-control" title="Harus di isi">
+									<input required type="text" name="suratterbang_norm" class="form-control" title="Harus di isi">
 								</div>
 								<div class="form-group">
 									<label>Nama</label>
-									<input required type="text" name="nomorsurat_nama" class="form-control" title="Harus di isi">
-								</div>
-								<div class="form-group">
-									<label>Unit</label>
-									<input required type="text" name="nomorsurat_unit" class="form-control" title="Harus di isi">
-								</div>	
-								<div class="form-group">
-									<label>Ijin</label>
-									<input required type="text" name="nomorsurat_ijin" class="form-control" title="Harus di isi">
-									<p class="text-muted">Dalam hari</p>
+									<input required type="text" name="suratterbang_nama" class="form-control" title="Harus di isi">
 								</div>											 
 							</div>
 						</div>
