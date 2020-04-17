@@ -166,15 +166,6 @@
                             </ul>
                         </li>
                       <?php else:?>
-                        <!--
-                        <li class="nav-item <?php if($global->menu==$menu->menu_nama){echo 'active';}?>">
-                          <a href="<?= site_url($menu->menu_link)?>" >
-                            <i class="<?= $menu->menu_ikon?>"></i>
-                            <p><?= ucwords(str_replace('_', ' ',$menu->menu_nama))?></p>
-                             <?=$menu->menu_baru==1 ? '<span class="badge badge-count badge-primary">Baru</span>':($menu->menu_baru==2 ? '<span class="badge badge-count badge-danger">Pro</span>':($menu->menu_baru==3 ? '<span class="badge badge-count badge-warning">Dev</span>':'')) ?>
-                          </a>
-                        </li>
-                        -->
                         <li>
                             <a href="<?= site_url($menu->menu_link)?>" class="waves-effect"><i data-icon="P" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu"><?= ucwords(str_replace('_', ' ',$menu->menu_nama))?></span></a>
                         </li>

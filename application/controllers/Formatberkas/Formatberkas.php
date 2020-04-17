@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as writer;
 
-class Suratbalasanrujukan extends CI_Controller {
+class Formatberkas extends CI_Controller {
 // class Registrasi extends Core {
 	public function __construct(){
 		parent::__construct();
@@ -24,14 +24,14 @@ class Suratbalasanrujukan extends CI_Controller {
 		$this->duwi->cekadmin();
 	}
 	//VARIABEL
-	private $master_tabel="suratbalasanrujukan"; //Mendefinisikan Nama Tabel
-	private $id="suratbalasanrujukan_id";	//Menedefinisaikan Nama Id Tabel
-	private $filename='surat balasan rujukan';
-	private $kodeberkas="B.16";
-	private $default_url="Nomorsurat/Suratbalasanrujukan/"; //Mendefinisikan url controller
-	private $default_view="Nomorsurat/Suratbalasanrujukan/"; //Mendefinisiakn defaul view
+	private $master_tabel="formatberkas"; //Mendefinisikan Nama Tabel
+	private $id="formatberkas_id";	//Menedefinisaikan Nama Id Tabel
+	private $filename='format berkas';
+	private $kodeberkas="B.-";
+	private $default_url="Formatberkas/Formatberkas/"; //Mendefinisikan url controller
+	private $default_view="Formatberkas/Formatberkas/"; //Mendefinisiakn defaul view
 	private $view="_template/_backend"; //Mendefinisikan Tamplate Root
-	private $path='./upload/berkas/';
+	private $path='./formatberkas/';
 	private $pathformatimport='./template/';
 
 	private function global_set($data){
@@ -40,8 +40,8 @@ class Suratbalasanrujukan extends CI_Controller {
 			$overwriteview=$data['overwriteview'];
 			$menu_submenu=$data['menu_submenu'];
 		}else{
-			$overwriteview="views/Nomorsurat/Suratbalasanrujukan/index.php";
-			$menu_submenu="surat_balasan_rujuk";
+			$overwriteview="views/Formatberkas/Formatberkas/index.php";
+			$menu_submenu="format_berkas";
 		}
 		$data=array(
 			'menu'=>'master',//Seting menu yang aktif
@@ -52,13 +52,13 @@ class Suratbalasanrujukan extends CI_Controller {
 			'view'=>$overwriteview,
 			'detail'=>false,
 			'print'=>false,
-			'edit'=>true,
+			'edit'=>false,
 			'delete'=>true,
 			'download'=>false,
 			'tambah'=>false,
 			'import'=>true,
 			'qrcode'=>false,
-
+			'hapussemua'=>false,
 		);
 		return (object)$data; //MEMBUAT ARRAY DALAM BENTUK OBYEK
 	}
@@ -73,7 +73,7 @@ class Suratbalasanrujukan extends CI_Controller {
 	public function index()
 	{
 		$global_set=array(
-			'headline'=>'surat balasan rujukan',
+			'headline'=>'format berkas upload',
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
@@ -134,10 +134,10 @@ class Suratbalasanrujukan extends CI_Controller {
 		$global=$this->global_set($global_set);
 		$query=array(
 			'select'=>'a.*,b.user_nama',
-			'tabel'=>'suratbalasanrujukan a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratbalasanrujukan_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.suratbalasanrujukan_id','orderby'=>'DESC'),
-		);	
+			'tabel'=>'formatberkas a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.formatberkas_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.formatberkas_id','orderby'=>'DESC'),
+		);
 		$data=array(
 			'global'=>$global,
 			'data'=>$this->Crud->join($query)->result(),
@@ -251,7 +251,7 @@ class Suratbalasanrujukan extends CI_Controller {
 		return $this->output->set_output(json_encode($dt));
 	}
 	public function downloadfile($file){
-		$this->duwi->downloadfile($this->pathformatimport,$file);
+		$this->duwi->downloadfile($this->path,$file);
 	}
 	public function previewfile($file=null){
 		if(!$file)$file='file tidak ada';

@@ -2,7 +2,7 @@
     <div class="col-lg-12">
       <div class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        Format Nomor : (NO.SURAT / B.16 / RSUII / BULAN ROMAWI / TAHUN)
+        Format Nomor : (NO.SURAT / B.06 / RSUII / BULAN ROMAWI / TAHUN)
       </div>        
       <div class="panel panel-default">
         <div class="panel-heading">&nbsp
@@ -15,7 +15,10 @@
                       <li role="presentation"><a href="javascript:void(0)" data-toggle="modal" data-target="#importdata" role="menuitem"><i class="fa fa-upload" aria-hidden="true"></i> Import Excel</a></li>
                     <?php endif;?>
                     <li class="divider" role="presentation"></li>    
-                    <li role="presentation"><a href="<?=site_url($global->url.'exportexcell')?>" role="menuitem"><i class="fa fa-download" aria-hidden="true"></i> Export Excel</a></li>   
+                    <li role="presentation"><a href="<?=site_url($global->url.'exportexcell')?>" role="menuitem"><i class="fa fa-download" aria-hidden="true"></i> Export Excel</a></li>
+                    <?php if($global->hapussemua):?>
+                      <li role="presentation"><a href="javascript:void(0)" role="menuitem" url="<?=base_url($global->url.'hapus/')?>"  id="<?=null?>" class="hapus"><i class="fa fa-trash" aria-hidden="true" ></i> Hapus Semua</a></li>   
+                    <?php endif;?>
                     <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="fa fa-gears" aria-hidden="true"></i> Settings</a></li>                   
                   </ul>
               </div>                 
@@ -32,9 +35,9 @@
                       <th >Bulan</th>
                       <th >No RM</th>
                       <th >Nama</th>
-                      <th >RS. Perujuk</th>
                       <th >Diagnosa</th>
-                      <th >Dokter Perujuk</th>
+                      <th >RS. Tujuan</th>
+                      <th >Poli Asal</th>
                       <th class="text-center">Aksi</th>
                     </tr>
                   </thead>
@@ -43,15 +46,15 @@
                     <?php foreach($data AS $row):?>
                     <tr>
                       <td><?=$i?></td>
-                      <td><?=$row->suratbalasanrujukan_nomor?><br><small class="text-danger">Disimpan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?></small></td>
-                      <td><?=ucwords($row->suratbalasanrujukan_bulan)?></td>
-                      <td><?=ucwords($row->suratbalasanrujukan_norm)?></td>
-                      <td><?=ucwords($row->suratbalasanrujukan_nama)?></td>
-                      <td><?=ucwords($row->suratbalasanrujukan_rsperujuk)?></td>
-                      <td><?=$row->suratbalasanrujukan_diagnosa?></td>
-                      <td><?=ucwords($row->suratbalasanrujukan_dokterperujuk)?></td>
+                      <td><?=$row->suratrujukankeluar_nomor?><br><small class="text-danger">Disimpan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?></small></td>
+                      <td><?=ucwords($row->suratrujukankeluar_bulan)?></td>
+                      <td><?=ucwords($row->suratrujukankeluar_norm)?></td>
+                      <td><?=ucwords($row->suratrujukankeluar_nama)?></td>
+                      <td><?=$row->suratrujukankeluar_dx?></td>
+                      <td><?=ucwords($row->suratrujukankeluar_rstujuan)?></td>
+                      <td><?=ucwords($row->suratrujukankeluar_poliasal)?></td>
                       <td class="text-center">
-                        <?php tombolaksi($global,$row->suratbalasanrujukan_id,$this->uri->segment(3))?>
+                        <?php tombolaksi($global,$row->suratrujukankeluar_id,$this->uri->segment(3))?>
                       </td>
                     </tr>
                   <?php $i++;?>  

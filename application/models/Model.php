@@ -65,14 +65,19 @@ class Model extends CI_Model
 		}
   	}
 	public function delete($data){
-		$this->db->where($data['where']); //ID PRIMARY KEY
-		if($this->db->delete($data['tabel'])){
+		if(isset($data['where'])){ 
+			$this->db->where($data['where']); //ID PRIMARY KEY
+			$hapus=$this->db->delete($data['tabel']);
+		}else{
+			$hapus=$this->db->empty_table($data['tabel']);
+		}
+		if($hapus){
 			return true;
 		}else{
 			$error=$this->db->error();
 			return $error['message'];
 		}
-	}
+	}	
 	public function update($data){
 		if(isset($data['where'])){
 			$this->db->where($data['where']);

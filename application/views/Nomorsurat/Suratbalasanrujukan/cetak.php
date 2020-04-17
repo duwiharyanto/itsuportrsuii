@@ -20,34 +20,34 @@
   </tr>
 </table>
 <table width="100%" border="1" cellpadding="5" cellspacing="0">
-    <thead>
-      <tr >
-        <th >No</th>
-        <th >Nomo Surat</th>
-        <th >Bulan</th>
-        <th >No RM</th>
-        <th >Nama</th>
-        <th >Tgl.Lahir</th>
-        <th >Jenis Kelamin</th>
-        <th >Ayah</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php $i=1;?>
-      <?php foreach($data AS $row):?>
-      <tr>
-        <td><?=$i?></td>
-        <td><?=$row->suratlahir_nomor?><br><small class="text-danger">Disimpan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?></small></td>
-        <td><?=ucwords($row->suratlahir_bulan)?></td>
-        <td><?=ucwords($row->suratlahir_norm)?></td>
-        <td><?=ucwords($row->suratlahir_nama)?></td>
-        <td><?=date('Y-m-d',strtotime($row->suratlahir_tgllahir))?></td>
-        <td><?=$row->suratlahir_jeniskelamin==1 ? 'Laki-laki':'Perempuan'?></td>
-        <td><?=ucwords($row->suratlahir_namaayah)?></td>
-      </tr>
-    <?php $i++;?>  
-    <?php endforeach;?>
-    </tbody>
+  <thead>
+    <tr >
+      <th >No</th>
+      <th >Nomo Surat</th>
+      <th >Bulan</th>
+      <th >No RM</th>
+      <th >Nama</th>
+      <th >RS. Perujuk</th>
+      <th >Diagnosa</th>
+      <th >Dokter Perujuk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php $i=1;?>
+    <?php foreach($data AS $row):?>
+    <tr>
+      <td><?=$i?></td>
+      <td><?=$row->suratbalasanrujukan_nomor?><br><small class="text-danger">Disimpan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?></small></td>
+      <td><?=ucwords($row->suratbalasanrujukan_bulan)?></td>
+      <td><?=ucwords($row->suratbalasanrujukan_norm)?></td>
+      <td><?=ucwords($row->suratbalasanrujukan_nama)?></td>
+      <td><?=ucwords($row->suratbalasanrujukan_rsperujuk)?></td>
+      <td><?=$row->suratbalasanrujukan_diagnosa?></td>
+      <td><?=ucwords($row->suratbalasanrujukan_dokterperujuk)?></td>
+    </tr>
+  <?php $i++;?>  
+  <?php endforeach;?>
+  </tbody>
 </table> 
 <table width="100%" style="margin-top: 5px">
   <tr>

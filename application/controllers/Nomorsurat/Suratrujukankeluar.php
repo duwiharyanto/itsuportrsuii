@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as writer;
 
-class Suratrujukankeluar extends CI_Controller {
+class suratrujukankeluar extends CI_Controller {
 // class Registrasi extends Core {
 	public function __construct(){
 		parent::__construct();
@@ -24,10 +24,10 @@ class Suratrujukankeluar extends CI_Controller {
 		$this->duwi->cekadmin();
 	}
 	//VARIABEL
-	private $master_tabel="suratbalasanrujukan"; //Mendefinisikan Nama Tabel
-	private $id="suratbalasanrujukan_id";	//Menedefinisaikan Nama Id Tabel
+	private $master_tabel="suratrujukankeluar"; //Mendefinisikan Nama Tabel
+	private $id="suratrujukankeluar_id";	//Menedefinisaikan Nama Id Tabel
 	private $filename='surat rujukan keluar';
-	private $kodeberkas="B.16";
+	private $kodeberkas="B.06";
 	private $default_url="Nomorsurat/Suratrujukankeluar/"; //Mendefinisikan url controller
 	private $default_view="Nomorsurat/Suratrujukankeluar/"; //Mendefinisiakn defaul view
 	private $view="_template/_backend"; //Mendefinisikan Tamplate Root
@@ -58,7 +58,7 @@ class Suratrujukankeluar extends CI_Controller {
 			'tambah'=>false,
 			'import'=>true,
 			'qrcode'=>false,
-
+			'hapussemua'=>true,
 		);
 		return (object)$data; //MEMBUAT ARRAY DALAM BENTUK OBYEK
 	}
@@ -79,18 +79,18 @@ class Suratrujukankeluar extends CI_Controller {
 		$global=$this->global_set($global_set);
 
 		//CEK SUBMIT DATA
-		if($this->input->post('suratbalasanrujukan_nomor')){
+		if($this->input->post('suratrujukankeluar_nomor')){
 			//PROSES SIMPAN
 			$data=array(
-				'suratbalasanrujukan_nomor'=>$this->input->post('suratbalasanrujukan_nomor'),
-				'suratbalasanrujukan_norm'=>$this->input->post('suratbalasanrujukan_norm'),
-				'suratbalasanrujukan_nama'=>$this->input->post('suratbalasanrujukan_nama'),
-				'suratbalasanrujukan_tanggal'=>date('Y-m-d',strtotime($this->input->post('suratbalasanrujukan_tanggal'))),
-				'suratbalasanrujukan_bulan'=>$this->duwi->bulannama(str_replace('0','',date('m',strtotime($this->input->post('suratbalasanrujukan_tanggal'))))),
-				'suratbalasanrujukan_iduser'=>$this->session->userdata('user_id'),
-				'suratbalasanrujukan_diagnosa'=>$this->input->post('suratbalasanrujukan_diagnosa'),
-				'suratbalasanrujukan_dokterperujuk'=>$this->input->post('suratbalasanrujukan_dokterperujuk'),
-				'suratbalasanrujukan_rsperujuk'=>$this->input->post('suratbalasanrujukan_rsperujuk'),
+				'suratrujukankeluar_nomor'=>$this->input->post('suratrujukankeluar_nomor'),
+				'suratrujukankeluar_norm'=>$this->input->post('suratrujukankeluar_norm'),
+				'suratrujukankeluar_nama'=>$this->input->post('suratrujukankeluar_nama'),
+				'suratrujukankeluar_tanggal'=>date('Y-m-d',strtotime($this->input->post('suratrujukankeluar_tanggal'))),
+				'suratrujukankeluar_bulan'=>$this->duwi->bulannama(str_replace('0','',date('m',strtotime($this->input->post('suratrujukankeluar_tanggal'))))),
+				'suratrujukankeluar_iduser'=>$this->session->userdata('user_id'),
+				'suratrujukankeluar_dx'=>$this->input->post('suratrujukankeluar_dx'),
+				'suratrujukankeluar_rstujuan'=>$this->input->post('suratrujukankeluar_rstujuan'),
+				'suratrujukankeluar_poliasal'=>$this->input->post('suratrujukankeluar_poliasal'),
 			);
 			########################################################
 			// $file='berkas_file';
@@ -134,9 +134,9 @@ class Suratrujukankeluar extends CI_Controller {
 		$global=$this->global_set($global_set);
 		$query=array(
 			'select'=>'a.*,b.user_nama',
-			'tabel'=>'suratbalasanrujukan a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratbalasanrujukan_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.suratbalasanrujukan_id','orderby'=>'DESC'),
+			'tabel'=>'suratrujukankeluar a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratrujukankeluar_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.suratrujukankeluar_id','orderby'=>'DESC'),
 		);	
 		$data=array(
 			'global'=>$global,
@@ -151,14 +151,14 @@ class Suratrujukankeluar extends CI_Controller {
 		);
 		$global=$this->global_set($global_set);
 		$id=$this->input->post('id');
-		if($this->input->post('suratbalasanrujukan_norm')){
+		if($this->input->post('suratrujukankeluar_norm')){
 			//PROSES SIMPAN
 			$data=array(
-				'suratbalasanrujukan_norm'=>$this->input->post('suratbalasanrujukan_norm'),
-				'suratbalasanrujukan_nama'=>$this->input->post('suratbalasanrujukan_nama'),
-				'suratbalasanrujukan_rsperujuk'=>$this->input->post('suratbalasanrujukan_rsperujuk'),
-				'suratbalasanrujukan_diagnosa'=>$this->input->post('suratbalasanrujukan_diagnosa'),
-				'suratbalasanrujukan_dokterperujuk'=>$this->input->post('suratbalasanrujukan_dokterperujuk'),
+				'suratrujukankeluar_norm'=>$this->input->post('suratrujukankeluar_norm'),
+				'suratrujukankeluar_nama'=>$this->input->post('suratrujukankeluar_nama'),
+				'suratrujukankeluar_dx'=>$this->input->post('suratrujukankeluar_dx'),
+				'suratrujukankeluar_rstujuan'=>$this->input->post('suratrujukankeluar_rstujuan'),
+				'suratrujukankeluar_poliasal'=>$this->input->post('suratrujukankeluar_poliasal'),
 			);
 			####################################################
 			// $file='berkas_file';
@@ -215,7 +215,7 @@ class Suratrujukankeluar extends CI_Controller {
 		);
 		$nourut=0;
 		$global=$this->global_set($global_set);
-		$db_nourut=$this->Crud->hardcode("SELECT LEFT(suratbalasanrujukan_nomor,4) AS kode from suratbalasanrujukan ORDER BY suratbalasanrujukan_nomor DESC LIMIT 1")->row();
+		$db_nourut=$this->Crud->hardcode("SELECT LEFT(suratrujukankeluar_nomor,4) AS kode from suratrujukankeluar ORDER BY suratrujukankeluar_nomor DESC LIMIT 1")->row();
 		if($db_nourut) $nourut=$db_nourut->kode;
 		$ar_noskm=[
 			'bulan'=>str_replace('0','',date('m')),
@@ -237,8 +237,9 @@ class Suratrujukankeluar extends CI_Controller {
 		//$this->hapus_file($id);
 		$query=array(
 			'tabel'=>$this->master_tabel,
-			'where'=>array($this->id=>$id),
+			//'where'=>array($this->id=>$id),
 		);
+		if($id) $query['where']=array($this->id=>$id);
 		$delete=$this->Crud->delete($query);
 		if($delete){
 			$dt['status']='success';
@@ -278,9 +279,9 @@ class Suratrujukankeluar extends CI_Controller {
 		$global=$this->global_set($global_set);
 		$query=array(
 			'select'=>'a.*,b.user_nama',
-			'tabel'=>'suratbalasanrujukan a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratbalasanrujukan_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.suratbalasanrujukan_id','orderby'=>'DESC'),
+			'tabel'=>'suratrujukankeluar a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratrujukankeluar_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.suratrujukankeluar_id','orderby'=>'DESC'),
 		);
 		$data=array(
 			'global'=>$global,
@@ -301,9 +302,9 @@ class Suratrujukankeluar extends CI_Controller {
 		$filename=$this->filename;
 		$query=array(
 			'select'=>'a.*,b.user_nama',
-			'tabel'=>'suratbalasanrujukan a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratbalasanrujukan_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.suratbalasanrujukan_id','orderby'=>'DESC'),
+			'tabel'=>'suratrujukankeluar a',
+			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratrujukankeluar_iduser','jenis'=>'INNER']],
+			'order'=>array('kolom'=>'a.suratrujukankeluar_id','orderby'=>'DESC'),
 		);
 		$dt=$this->Crud->join($query)->result();
 		$spreadsheet = new PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -317,22 +318,22 @@ class Suratrujukankeluar extends CI_Controller {
 		->setCellValue('C2', 'Bulan')
 		->setCellValue('D2', 'No RM')
 		->setCellValue('E2', 'Nama')
-		->setCellValue('F2', 'RS Perujuk')
-		->setCellValue('G2', 'Diagnosa')
-		->setCellValue('H2', 'Dokter Perujuk');
+		->setCellValue('F2', 'Diagnosa')
+		->setCellValue('G2', 'RS. Tujuan')
+		->setCellValue('H2', 'Poli Asal');
 
 		$kolom = 3;
 		$nomor = 1;
 		foreach($dt as $row) {
 			$spreadsheet->setActiveSheetIndex(0)
 			->setCellValue('A' . $kolom, $nomor)
-			->setCellValue('B' . $kolom, $row->suratbalasanrujukan_nomor)
-			->setCellValue('C' . $kolom, $row->suratbalasanrujukan_bulan)
-			->setCellValue('D' . $kolom, $row->suratbalasanrujukan_norm)
-			->setCellValue('E' . $kolom, $row->suratbalasanrujukan_nama)
-			->setCellValue('F' . $kolom, $row->suratbalasanrujukan_rsperujuk)
-			->setCellValue('G' . $kolom, $row->suratbalasanrujukan_diagnosa)
-			->setCellValue('H' . $kolom, $row->suratbalasanrujukan_dokterperujuk);
+			->setCellValue('B' . $kolom, $row->suratrujukankeluar_nomor)
+			->setCellValue('C' . $kolom, $row->suratrujukankeluar_bulan)
+			->setCellValue('D' . $kolom, $row->suratrujukankeluar_norm)
+			->setCellValue('E' . $kolom, $row->suratrujukankeluar_nama)
+			->setCellValue('F' . $kolom, $row->suratrujukankeluar_dx)
+			->setCellValue('G' . $kolom, $row->suratrujukankeluar_rstujuan)
+			->setCellValue('H' . $kolom, $row->suratrujukankeluar_poliasal);
 			$kolom++;
 			$nomor++;
 
@@ -358,7 +359,6 @@ class Suratrujukankeluar extends CI_Controller {
 		        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
 		    } else {
 		        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-
 		    }
 		    $spreadsheet = $reader->load($_FILES[$file]['tmp_name']);
 		    $sheetData = $spreadsheet->getActiveSheet()->toArray();
@@ -366,15 +366,15 @@ class Suratrujukankeluar extends CI_Controller {
 			for($i = 2;$i < count($sheetData);$i++)
 			{
 		    	array_push($data, array(
-					'suratbalasanrujukan_nomor'=>$sheetData[$i]['1'],
-					'suratbalasanrujukan_bulan'=>$sheetData[$i]['2'],
-					'suratbalasanrujukan_norm'=>$sheetData[$i]['3'],
-					'suratbalasanrujukan_nama'=>$sheetData[$i]['4'],
-					'suratbalasanrujukan_tanggal'=>date('Y-m-d'),
-					'suratbalasanrujukan_iduser'=>$this->session->userdata('user_id'),
-					'suratbalasanrujukan_rsperujuk'=>$sheetData[$i]['5'],
-					'suratbalasanrujukan_diagnosa'=>$sheetData[$i]['6'],
-					'suratbalasanrujukan_dokterperujuk'=>$sheetData[$i]['7'],					
+					'suratrujukankeluar_nomor'=>$sheetData[$i]['1'],
+					'suratrujukankeluar_bulan'=>$sheetData[$i]['2'],
+					'suratrujukankeluar_norm'=>$sheetData[$i]['3'],
+					'suratrujukankeluar_nama'=>$sheetData[$i]['4'],
+					'suratrujukankeluar_tanggal'=>date('Y-m-d'),
+					'suratrujukankeluar_iduser'=>$this->session->userdata('user_id'),
+					'suratrujukankeluar_dx'=>$sheetData[$i]['5'],
+					'suratrujukankeluar_rstujuan'=>$sheetData[$i]['6'],
+					'suratrujukankeluar_poliasal'=>$sheetData[$i]['7'],
 		    	));
 		    }
 			$query=array(
