@@ -53,7 +53,7 @@ class Formatberkas extends CI_Controller {
 			'detail'=>false,
 			'print'=>false,
 			'edit'=>false,
-			'delete'=>true,
+			'delete'=>false,
 			'download'=>false,
 			'tambah'=>false,
 			'import'=>true,

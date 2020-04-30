@@ -55,7 +55,7 @@ class Surathamil extends CI_Controller {
 			'delete'=>true,
 			'download'=>false,
 			'tambah'=>false,
-			'import'=>false,
+			'import'=>true,
 			'qrcode'=>false,
 
 		);

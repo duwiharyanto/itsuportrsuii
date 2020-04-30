@@ -1,4 +1,5 @@
 <div id="view">
+	<div class="text-center" id="ajaxloading" style="display: none"><i class="fa fa-spin fa-circle-o-notch" ></i> Loading data. Please wait...</div>
 	<div id="tabel" url="<?= base_url($global->url.'tabel')?>">
 		<div class="text-center"><i class="fa fa-spin fa-circle-o-notch"></i> Loading data. Please wait...</div>
 	</div>  

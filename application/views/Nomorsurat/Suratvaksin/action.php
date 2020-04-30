@@ -10,6 +10,12 @@
     validasi();  
     hapus();
     $('.select').select2(); 
+    $('.datepicker').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "dd-mm-yyyy",
+        todayBtn: true,        
+    });    
     $('#tampildata').DataTable({
       dom: 'Bfrtip',
       pageLength:100,
@@ -121,13 +127,13 @@
   function notifikasi(param){
     var placement = 'top-right';
     if(param.status=='danger'){
-      var state = 'danger';
+      var state = 'error';
       msg= param.msg;
     }else if(param.status=='success'){
       var state = 'success';
       msg = param.msg;
     }else{
-      var state = 'danger';
+      var state = 'error';
       msg = 'fatal error';
     }          
      $.toast({
@@ -150,44 +156,6 @@
     $('.hapus').click(function(){
       var url=$(this).attr('url');
       var id=$(this).attr('id');
-      // swal({
-      //   title: "Anda yakin ?",
-      //   text: "data akan dihapus permanen",
-      //   icon: "warning",
-      //   buttons: true,
-      //   dangerMode: true,
-      // })
-      // .then((willDelete) => {
-      //   if (willDelete) {
-      //       $.ajax({
-      //         url:url,
-      //         type:'POST',
-      //         dataType:'json',
-      //         data:{id:id},
-      //         success:function(data){
-      //           if(data.status=='success'){
-      //             var status=data.status;
-      //             var msg=data.msg;          
-      //           }else{
-      //             var status=data.status;
-      //             var msg=data.msg;       
-      //           }
-      //           param={
-      //             status:status,
-      //             msg:msg,
-      //           }
-      //           notifikasi(param);
-      //           loaddata();
-      //           console.log(data.status);
-      //         },
-      //       error:function(){    
-      //           console.log('aksi error');        
-      //       }          
-      //       })
-      //   } else {
-      //     swal("Proses dibatalkan", "", "error");
-      //   }
-      // });
         swal({   
             title: "Anda yakin ?",
             text: "data akan dihapus permanen",

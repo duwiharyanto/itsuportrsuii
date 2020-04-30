@@ -11,10 +11,14 @@
                   <ul class="dropdown-menu bullet dropdown-menu-right" aria-labelledby="examplePanelDropdown" role="menu">
                       <li role="presentation"><a href="javascript:void(0)" onclick="add();" id="add" url="<?= base_url($global->url.'add')?>" role="menuitem"><i class=" fa fa-plus" aria-hidden="true" ></i> Tambah</a></li>
                       <li role="presentation"><a href="JavaScript:popuplaporan('<?=base_url($global->url.'cetak')?>');" role="menuitem"><i class="fa fa-print" aria-hidden="true"></i> Print</a></li>
-                      <?php if($global->import):?>
-                      <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="fa fa-upload" aria-hidden="true"></i> Import</a></li>
-                      <?php endif;?>
-                      <li class="divider" role="presentation"></li>    
+                    <?php if($global->import):?>
+                      <li role="presentation"><a href="javascript:void(0)" role="menuitem" data-toggle="modal" data-target="#importdata"><i class="fa fa-upload" aria-hidden="true"></i> Import</a></li>
+                    <?php endif;?>
+                      <li class="divider" role="presentation"></li>
+                      <li role="presentation"><a href="<?=site_url($global->url.'exportexcell')?>" role="menuitem"><i class="fa fa-download" aria-hidden="true"></i> Export Excel</a></li>
+                    <?php if($global->hapussemua):?>
+                      <li role="presentation"><a href="javascript:void(0)" role="menuitem" url="<?=base_url($global->url.'hapus/')?>"  id="<?=null?>" class="hapus"><i class="fa fa-trash" aria-hidden="true" ></i> Hapus Semua</a></li>   
+                    <?php endif;?> 
                       <li role="presentation"><a href="javascript:void(0)" role="menuitem"><i class="fa fa-gears" aria-hidden="true"></i> Settings</a></li>                   
                   </ul>
               </div>                 
@@ -61,6 +65,7 @@
       </div>        
     </div>                    
 </div>
+<?php include(APPPATH.'views/_template/_modalimport.php')?>
 <script type="text/javascript">
     $('#example23').DataTable({
         dom: 'Bfrtip',
