@@ -24,8 +24,8 @@ class Suratvaksin extends CI_Controller {
 		$this->duwi->cekadmin();
 	}
 	//VARIABEL
-	private $master_tabel="suratsehat"; //Mendefinisikan Nama Tabel
-	private $id="suratsehat_id";	//Menedefinisaikan Nama Id Tabel
+	private $master_tabel="suratvaksin"; //Mendefinisikan Nama Tabel
+	private $id="suratvaksin_id";	//Menedefinisaikan Nama Id Tabel
 	private $kodeberkas="B.19";
 	private $filename='Surat Keterangan Vaksin';
 	private $namainstansi='RSUII';
@@ -87,7 +87,9 @@ class Suratvaksin extends CI_Controller {
 				'suratvaksin_nomor'=>$this->input->post('suratvaksin_nomor'),
 				'suratvaksin_norm'=>$this->input->post('suratvaksin_norm'),
 				'suratvaksin_nama'=>$this->input->post('suratvaksin_nama'),
-				'suratvaksin_poli'=>$this->input->post('suratvaksin_poli'),
+				'suratvaksin_vaksin'=>$this->input->post('suratvaksin_vaksin'),
+				'suratvaksin_dokter'=>$this->input->post('suratvaksin_dokter'),
+				'suratvaksin_tglvaksin'=>date('Y-m-d',strtotime($this->input->post('suratvaksin_tglvaksin'))),
 				'suratvaksin_tanggal'=>date('Y-m-d',strtotime($this->input->post('suratvaksin_tanggal'))),
 				'suratvaksin_bulan'=>$this->duwi->bulannama(str_replace('0','',date('m',strtotime($this->input->post('suratvaksin_tanggal'))))),
 				'suratvaksin_iduser'=>$this->session->userdata('user_id'),
@@ -156,7 +158,8 @@ class Suratvaksin extends CI_Controller {
 			$data=array(
 				'suratvaksin_norm'=>$this->input->post('suratvaksin_norm'),
 				'suratvaksin_nama'=>$this->input->post('suratvaksin_nama'),
-				'suratvaksin_poli'=>$this->input->post('suratvaksin_poli'),
+				'suratvaksin_vaksin'=>$this->input->post('suratvaksin_vaksin'),
+				'suratvaksin_dokter'=>$this->input->post('suratvaksin_dokter'),
 			);
 			####################################################
 			// $file='berkas_file';
@@ -324,7 +327,9 @@ class Suratvaksin extends CI_Controller {
 			->setCellValue('C' . $kolom, $row->suratvaksin_bulan)
 			->setCellValue('D' . $kolom, $row->suratvaksin_norm)
 			->setCellValue('E' . $kolom, $row->suratvaksin_nama)
-			->setCellValue('F' . $kolom, $row->suratvaksin_nama);
+			->setCellValue('F' . $kolom, date('d-m-Y',strtotime($row->suratvaksin_tglvaksin)))
+			->setCellValue('G' . $kolom, $row->suratvaksin_vaksin)
+			->setCellValue('H' . $kolom, $row->suratvaksin_dokter);
 			$kolom++;
 			$nomor++;
 		}
@@ -355,13 +360,16 @@ class Suratvaksin extends CI_Controller {
 		    $data=array();
 			for($i = 2;$i < count($sheetData);$i++)
 			{
+				$nomorsurat=$sheetData[$i]['1'].$sheetData[$i]['2'];
 		    	array_push($data, array(
-					'suratvaksin_nomor'=>$sheetData[$i]['1'],
-					'suratvaksin_norm'=>$sheetData[$i]['3'],
-					'suratvaksin_nama'=>$sheetData[$i]['4'],
+					'suratvaksin_nomor'=>$nomorsurat,
+					'suratvaksin_norm'=>$sheetData[$i]['4'],
+					'suratvaksin_nama'=>$sheetData[$i]['5'],
 					'suratvaksin_tanggal'=>date('Y-m-d'),
-					'suratvaksin_bulan'=>$sheetData[$i]['2'],
-					'suratvaksin_poli'=>$sheetData[$i]['5'],
+					'suratvaksin_bulan'=>$sheetData[$i]['3'],
+					'suratvaksin_tglvaksin'=>date('Y-m-d',strtotime($sheetData[$i]['6'])),
+					'suratvaksin_vaksin'=>$sheetData[$i]['7'],
+					'suratvaksin_dokter'=>$sheetData[$i]['8'],
 					'suratvaksin_iduser'=>$this->session->userdata('user_id'),
 		    	));
 		    }

@@ -12,25 +12,33 @@
 								<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">		      						
 								<div class="form-group">
 									<label>Nomor Surat</label>
-									<input readonly required type="text" name="suratsehat_nomor" class="form-control" title="Harus di isi" value="<?=$noskm?>">
+									<input readonly required type="text" name="suratvaksin_nomor" class="form-control" title="Harus di isi" value="<?=$noskm?>">
 									<p class="text-danger">Diambil dari data tanggal sekarang <?=date('d-m-Y')?></p>
 								</div>
 								<div class="form-group">
 									<label>Tanggal</label>
-									<input required name="suratsehat_tanggal" class="form-control datepicker" type="text" value="<?=date('d-m-Y')?>"></input>
+									<input required name="suratvaksin_tanggal" class="form-control datepicker" type="text" value="<?=date('d-m-Y')?>"></input>
 								</div>    
 								<div class="form-group">
 									<label>Nomor RM</label>
-									<input required type="text" name="suratsehat_norm" class="form-control" title="Harus di isi">
+									<input required type="text" name="suratvaksin_norm" class="form-control" title="Harus di isi">
 								</div>
 								<div class="form-group">
 									<label>Nama</label>
-									<input required type="text" name="suratsehat_nama" class="form-control" title="Harus di isi">
+									<input required type="text" name="suratvaksin_nama" class="form-control" title="Harus di isi">
 								</div>
 								<div class="form-group">
-									<label>Poli</label>
-									<input required type="text" name="suratsehat_poli" class="form-control" title="Harus di isi">
-								</div>											 
+									<label>Tanggal Pemberian Vaksin</label>
+									<input required name="suratvaksin_tglvaksin" class="form-control datepicker" type="text"></input>
+								</div> 								
+								<div class="form-group">
+									<label>Vaksin</label>
+									<input required type="text" name="suratvaksin_vaksin" class="form-control" title="Harus di isi">
+								</div>
+								<div class="form-group">
+									<label>Dokter</label>
+									<input required type="text" name="suratvaksin_dokter" class="form-control" title="Harus di isi">
+								</div>																			 
 							</div>
 						</div>
 						<div class="row">

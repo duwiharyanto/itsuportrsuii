@@ -2,7 +2,7 @@
     <div class="col-lg-12">
       <div class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        Format Nomor : (NO.SURAT / B.2 / RSUII / BULAN ROMAWI/TAHUN)
+        Format Nomor : (NO.SURAT / B.19 / RSUII / BULAN ROMAWI/ TAHUN)
       </div>        
       <div class="panel panel-default">
         <div class="panel-heading">&nbsp
@@ -35,7 +35,8 @@
                       <th >Bulan</th>
                       <th >No RM</th>
                       <th >Nama</th>
-                      <th >Poli</th>
+                      <th >Vaksin</th>
+                      <th>Dokter</th>
                       <th class="text-center">Aksi</th>
                     </tr>
                   </thead>
@@ -44,13 +45,14 @@
                     <?php foreach($data AS $row):?>
                     <tr>
                       <td><?=$i?></td>
-                      <td><?=$row->suratsehat_nomor?><br><small class="text-danger">Disimpan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?></small></td>
-                      <td><?=ucwords($row->suratsehat_bulan)?></td>
-                      <td><?=ucwords($row->suratsehat_norm)?></td>
-                      <td><?=ucwords($row->suratsehat_nama)?></td>
-                      <td><?=ucwords($row->suratsehat_poli)?></td>
+                      <td><?=$row->suratvaksin_nomor?><br><small class="text-danger">Disimpan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?></small></td>
+                      <td><?=ucwords($row->suratvaksin_bulan)?></td>
+                      <td><?=ucwords($row->suratvaksin_norm)?></td>
+                      <td><?=ucwords($row->suratvaksin_nama)?></td>
+                      <td><?=ucwords($row->suratvaksin_vaksin ? $row->suratvaksin_vaksin:'-')?><br>Diberikan : <?=date('d-m-Y',strtotime($row->suratvaksin_tglvaksin))?></small></td>
+                      <td><?=ucwords($row->suratvaksin_dokter)?></td>
                       <td class="text-center">
-                        <?php tombolaksi($global,$row->suratsehat_id,$this->uri->segment(3))?>
+                        <?php tombolaksi($global,$row->suratvaksin_id,$this->uri->segment(3))?>
                       </td>
                     </tr>
                   <?php $i++;?>  
