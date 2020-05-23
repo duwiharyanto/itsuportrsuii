@@ -66,6 +66,7 @@
 <?php include(APPPATH.'views/_template/_modalimport.php'); ?>
 <script type="text/javascript">
     $('#example23').DataTable({
+        pageLength:100,
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'

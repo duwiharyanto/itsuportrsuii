@@ -69,10 +69,13 @@ class Backup extends CI_Controller {
 		$save  = 'backupdb/' . $db_name; // dir name backup output destination
 
 		$this->load->helper('file');
-		write_file($save, $backup);
-
-		$this->load->helper('download');
-		force_download($db_name, $backup);
+		$r=write_file($save, $backup);
+		if($r){
+			$this->session->set_flashdata('success','Backup data berhasil');
+		}
+		redirect(site_url($this->default_url));	
+		// $this->load->helper('download');
+		// force_download($db_name, $backup);
 	}
 	public function files(){
 		$opt = array(
@@ -117,5 +120,12 @@ class Backup extends CI_Controller {
 			'global'=>$global,
 		);
 		$this->load->view($this->default_view.'tabel',$data);		
+	}
+	public function filemanager(){
+        define('FM_EMBED', true);
+        //define('FM_SELF_URL', UrlHelper::currentUrl()); // must be set if URL to manager not equal PHP_SELF
+        define('FM_SELF_URL', $_SERVER['PHP_SELF']);
+        $path=base_url('/plugins/');
+        require 'filemanager.php';		
 	}
 }

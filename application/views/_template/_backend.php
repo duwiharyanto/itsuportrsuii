@@ -85,7 +85,7 @@
                         <!-- Logo text image you can use text also
                         <span class="hidden-xs"><img src="<?=base_url()?>/plugins/images/eliteadmin-text.png" alt="home" /></span>
                         -->
-                        <span class="hidden-xs"><span class="fa fa-book"></span> <?=$this->session->userdata('atributsistem_namasistem') ? $this->session->userdata('atributsistem_namasistem'):'Dashboard' ?></span>
+                        <span class="hidden-xs"><span class="text-danger fa fa-heart"></span> <?=$this->session->userdata('atributsistem_namasistem') ? $this->session->userdata('atributsistem_namasistem'):'Dashboard' ?></span>
                     </a>
                 </div>
                 <!-- /Logo -->
@@ -129,6 +129,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="<?=$this->session->userdata('user_foto') ? base_url('/upload/profil/'.$this->session->userdata('user_foto')):base_url('/upload/profil/profile.jpg')?>" alt="user-img" width="36" class="img-circle"><b class="hidden-xs"><?=$this->session->userdata('user_nama')?></b> </a>
                         <ul class="dropdown-menu dropdown-user animated flipInY">
+                            <li><a href="<?=site_url('Gantipassword')?>"><i class="fa fa-lock"></i> Password</a></li>
                             <li><a href="<?=site_url('Login/logout')?>"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                         <!-- /.user dropdown-user -->
@@ -236,7 +237,7 @@
                 ?>
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> <?=date('Y')?> &copy; <a href="mailto:haryanto.duwi@gmail.com">haryanto.duwi</a> </footer>
+            <footer class="footer text-center"> <?=BANNER_FOOTER?> </footer>
             
             
         </div>

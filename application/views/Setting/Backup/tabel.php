@@ -6,10 +6,9 @@
             <div class="table-responsive">
               <p>Backup database akan disimpan dalam folder backupdb(root folder)</p>
               <a href="<?=base_url($global->url.'db')?>" class="btn btn-primary"><span class="flaticon-download"></span> Backup</a>
-              <a href="JavaScript:popuplaporan('<?=base_url('backupdb')?>')" class="btn btn-warning">Open File</a>
-              <hr>
-              <p>Download semua backup database yang tersimpan disistem</p>
-              <a href="<?=base_url($global->url.'files')?>" class="btn btn-primary"><span class="flaticon-download"></span> Backup</a> 
+            </div>
+            <div class="form-group mt-2">
+               <iframe src="<?=base_url($global->url.'/filemanager')?>" title="file manajer" width="100%" height="300" style="border:0px solid black;"></iframe> 
             </div>
           </div>
         </div>

@@ -58,6 +58,7 @@ class Suratlahir extends CI_Controller {
 			'tambah'=>false,
 			'import'=>true,
 			'qrcode'=>false,
+			'hapussemua'=>true,
 
 		);
 		return (object)$data; //MEMBUAT ARRAY DALAM BENTUK OBYEK
@@ -237,8 +238,8 @@ class Suratlahir extends CI_Controller {
 		//$this->hapus_file($id);
 		$query=array(
 			'tabel'=>$this->master_tabel,
-			'where'=>array($this->id=>$id),
 		);
+		if($id) $query['where']=[$this->id=>$id];
 		$delete=$this->Crud->delete($query);
 		if($delete){
 			$dt['status']='success';
@@ -365,15 +366,16 @@ class Suratlahir extends CI_Controller {
 		    $data=array();
 			for($i = 2;$i < count($sheetData);$i++)
 			{
+				$nomorsurat=str_pad($sheetData[$i]['1'], 4, "0", STR_PAD_LEFT).$sheetData[$i]['2'];
 		    	array_push($data, array(
-					'suratlahir_nomor'=>$sheetData[$i]['1'],
-					'suratlahir_norm'=>$sheetData[$i]['3'],
-					'suratlahir_nama'=>$sheetData[$i]['4'],
+					'suratlahir_nomor'=>$nomorsurat,
+					'suratlahir_norm'=>$sheetData[$i]['4'],
+					'suratlahir_nama'=>$sheetData[$i]['5'],
 					'suratlahir_tanggal'=>date('Y-m-d'),
-					'suratlahir_bulan'=>$sheetData[$i]['2'],
+					'suratlahir_bulan'=>$sheetData[$i]['3'],
 					'suratlahir_iduser'=>$this->session->userdata('user_id'),
-					'suratlahir_jeniskelamin'=>$sheetData[$i]['5'],
-					'suratlahir_namaayah'=>$sheetData[$i]['7'],
+					'suratlahir_jeniskelamin'=>strtolower($sheetData[$i]['7'])=='l' ? '1':'',
+					'suratlahir_namaayah'=>$sheetData[$i]['8'],
 					'suratlahir_tgllahir'=>date('Y-m-d',strtotime($sheetData[$i]['6'])),				
 		    	));
 		    }

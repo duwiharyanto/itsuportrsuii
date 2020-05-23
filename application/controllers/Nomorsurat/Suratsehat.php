@@ -132,15 +132,16 @@ class Suratsehat extends CI_Controller {
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
-		$query=array(
-			'select'=>'a.*,b.user_nama',
-			'tabel'=>'suratsehat a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratsehat_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.suratsehat_id','orderby'=>'DESC'),
-		);	
+		// $query=array(
+		// 	'select'=>'a.*,b.user_nama',
+		// 	'tabel'=>'suratsehat a',
+		// 	'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.suratsehat_iduser','jenis'=>'INNER']],
+		// 	'order'=>array('kolom'=>'a.suratsehat_id','orderby'=>'DESC'),
+		// );
+		$query='select a.*,b.user_nama from suratsehat a JOIN user b ON b.user_id=a.suratsehat_iduser ORDER BY LEFT(a.suratsehat_nomor,4) DESC';			
 		$data=array(
 			'global'=>$global,
-			'data'=>$this->Crud->join($query)->result(),
+			'data'=>$this->Crud->hardcode($query)->result(),
 		);
 		$this->load->view($this->default_view.'tabel',$data);
 	}
@@ -355,13 +356,14 @@ class Suratsehat extends CI_Controller {
 		    $data=array();
 			for($i = 2;$i < count($sheetData);$i++)
 			{
+				$nomorsurat=str_pad($sheetData[$i]['1'], 4, "0", STR_PAD_LEFT).$sheetData[$i]['2'];
 		    	array_push($data, array(
-					'suratsehat_nomor'=>$sheetData[$i]['1'],
-					'suratsehat_norm'=>$sheetData[$i]['3'],
-					'suratsehat_nama'=>$sheetData[$i]['4'],
+					'suratsehat_nomor'=>$nomorsurat,
+					'suratsehat_norm'=>$sheetData[$i]['4'],
+					'suratsehat_nama'=>$sheetData[$i]['5'],
 					'suratsehat_tanggal'=>date('Y-m-d'),
-					'suratsehat_bulan'=>$sheetData[$i]['2'],
-					'suratsehat_poli'=>$sheetData[$i]['5'],
+					'suratsehat_bulan'=>$sheetData[$i]['3'],
+					'suratsehat_poli'=>$sheetData[$i]['6'],
 					'suratsehat_iduser'=>$this->session->userdata('user_id'),
 		    	));
 		    }

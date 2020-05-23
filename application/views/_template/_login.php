@@ -29,6 +29,7 @@
             <div class="white-box" style="margin-top: 20px">
                 <div class="text-center box-title m-b-20">
                     <img src="<?=base_url('/plugins/images/arraymotion.png')?>" style="height: 94px;width: 94px">
+                    <h4>IT Support RS UII</h4>
                 </div>
                 <?php if($this->session->flashdata('error')):?>
                 <div class="alert alert-danger alert-dismissable ">
@@ -63,7 +64,7 @@
                     </div>
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
-                            <p>Don't have an account? <a href="javascript:void(0)" class="text-primary m-l-5"><b>Sign Up</b></a></p>
+                            <p><?=BANNER_FOOTER?></p>
                         </div>
                     </div>
                 </form>

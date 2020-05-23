@@ -57,7 +57,7 @@ class Surathamil extends CI_Controller {
 			'tambah'=>false,
 			'import'=>true,
 			'qrcode'=>false,
-
+			'hapussemua'=>true,
 		);
 		return (object)$data; //MEMBUAT ARRAY DALAM BENTUK OBYEK
 	}
@@ -128,15 +128,16 @@ class Surathamil extends CI_Controller {
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
-		$query=array(
-			'select'=>'a.*,b.user_nama',
-			'tabel'=>'surathamil a',
-			'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.surathamil_iduser','jenis'=>'INNER']],
-			'order'=>array('kolom'=>'a.surathamil_id','orderby'=>'DESC'),
-		);	
+		// $query=array(
+		// 	'select'=>'a.*,b.user_nama',
+		// 	'tabel'=>'surathamil a',
+		// 	'join'=>[['tabel'=>'user b','ON'=>'b.user_id=a.surathamil_iduser','jenis'=>'INNER']],
+		// 	'order'=>array('kolom'=>'a.surathamil_id','orderby'=>'DESC'),
+		// );
+		$query='select LEFT(a.surathamil_nomor,4),a.*,b.user_nama from surathamil a JOIN user b ON b.user_id=a.surathamil_iduser ORDER BY LEFT(a.surathamil_nomor,4) DESC';			
 		$data=array(
 			'global'=>$global,
-			'data'=>$this->Crud->join($query)->result(),
+			'data'=>$this->Crud->hardcode($query)->result(),
 		);
 		$this->load->view($this->default_view.'tabel',$data);
 	}
@@ -230,8 +231,9 @@ class Surathamil extends CI_Controller {
 		//$this->hapus_file($id);
 		$query=array(
 			'tabel'=>$this->master_tabel,
-			'where'=>array($this->id=>$id),
+			//'where'=>array($this->id=>$id),
 		);
+		if($id) $query['where']=[$this->id=>$id];
 		$delete=$this->Crud->delete($query);
 		if($delete){
 			$dt['status']='success';
@@ -352,12 +354,13 @@ class Surathamil extends CI_Controller {
 		    $data=array();
 			for($i = 1;$i < count($sheetData);$i++)
 			{
+				$nomorsurat=str_pad($sheetData[$i]['1'], 4, "0", STR_PAD_LEFT).$sheetData[$i]['2'];
 		    	array_push($data, array(
-					'surathamil_nomor'=>$sheetData[$i]['1'],
-					'surathamil_norm'=>$sheetData[$i]['3'],
-					'surathamil_nama'=>$sheetData[$i]['4'],
+					'surathamil_nomor'=>$nomorsurat,
+					'surathamil_norm'=>$sheetData[$i]['4'],
+					'surathamil_nama'=>$sheetData[$i]['5'],
 					'surathamil_tanggal'=>date('Y-m-d'),
-					'surathamil_bulan'=>$sheetData[$i]['2'],
+					'surathamil_bulan'=>$sheetData[$i]['3'],
 					'surathamil_iduser'=>$this->session->userdata('user_id'),
 		    	));
 		    }

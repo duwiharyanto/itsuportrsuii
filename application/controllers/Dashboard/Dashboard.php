@@ -84,26 +84,16 @@ class Dashboard extends CI_Controller {
 	}
 	public function grafikdashboard(){
 		$userloginharian="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal,log_aksi, COUNT(*) AS jumlah From log WHERE log_aksi='login' GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 20";
-		$r_loginharian=$this->Crud->hardcode($userloginharian)->result_array();	
-
-		$suratsakit="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal, COUNT(*) AS jumlah From nomorsurat GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 20";
-		$r_suratsakit=$this->Crud->hardcode($suratsakit)->result_array();
-
-		$suratsehat="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal, COUNT(*) AS jumlah From suratsehat GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 20";
-		$r_suratsehat=$this->Crud->hardcode($suratsehat)->result_array();
-
-		$surathamil="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal, COUNT(*) AS jumlah From surathamil GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 20";
-		$r_surathamil=$this->Crud->hardcode($surathamil)->result_array();
-
-		$suratlahir="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal, COUNT(*) AS jumlah From suratlahir GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 20";
-		$r_suratlahir=$this->Crud->hardcode($suratlahir)->result_array();		
-
+		$r_loginharian=$this->Crud->hardcode($userloginharian)->result_array();		
+		$qtroubel="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal, COUNT(*) AS jumlah From troubleshoot GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 7";
+		$r_trobel=$this->Crud->hardcode($qtroubel)->result_array();
+		$qstatus="select b.status_status AS status, COUNT(*) AS jumlah From troubleshoot a JOIN 
+			status b ON b.status_id=troubleshoot_idstatus GROUP BY a.troubleshoot_idstatus";
+		$r_status=$this->Crud->hardcode($qstatus)->result_array();
 		$data=[
 			$r_loginharian,
-			$r_suratsakit,
-			$r_suratsehat,
-			$r_surathamil,
-			$r_suratlahir,
+			$r_trobel,
+			$r_status,
 		];	
 		$this->output->set_output(json_encode($data));
 	}
@@ -114,22 +104,16 @@ class Dashboard extends CI_Controller {
 		);
 		//LOAD FUNCTION GLOBAL SET
 		$global=$this->global_set($global_set);
-		//USER LOGIN
-		$userloginharian="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal,log_aksi, COUNT(*) AS jumlah From log WHERE log_aksi='login' GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 7";
-		$r_loginharian=$this->Crud->hardcode($userloginharian)->result();
-		$ar_loginharian=array();
-		$ar_tglloginharian=array();
-		foreach ($r_loginharian as $index => $row) {
-			$ar_loginharian[$index]=intval($row->jumlah);
-			$ar_tglloginharian[$index]='"'.date('d-m-Y',strtotime($row->tanggal)).'"';
-		}
-		$grafikloginuser=[
-			'loginharian'=>'['.implode(',',$ar_loginharian).']',
-			'tglloginharian'=>'['.implode(',', $ar_tglloginharian).']',
+		$trobelshoot=[
+			'tabel'=>'troubleshoot',
 		];
-
+		$notulen=[
+			'tabel'=>'notulen',
+		];
 		$data=array(
 			'global'=>$global,
+			'jumtroubleshoot'=>count($this->Crud->read($trobelshoot)->result()),
+			'jumnotulen'=>count($this->Crud->read($notulen)->result()),
 			// 'grafikloginuser'=>$grafikloginuser,
 			// 'grafikregistrasi'=>$grafikregistrasi,
 			// 'kegiatan'=>$r_kegiatan,
