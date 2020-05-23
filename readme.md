@@ -4,10 +4,10 @@ Programer haryanto.duwi
 
 Email haryanto.duwi@gmail.com
 
-Aplikasi Pencatatan Surat Rekam Medis
+Aplikasi IT Suport 
 
 
-[![y8OYTq.png](https://b.imge.to/2020/03/28/y8OYTq.png)](https://imge.to/i/y8OYTq)
+[![yBWyRG.jpg](https://a.imge.to/2020/05/23/yBWyRG.jpg)](https://imge.to/i/yBWyRG)
 
 
 ***UPDATE***
@@ -17,10 +17,12 @@ Aplikasi Pencatatan Surat Rekam Medis
 ***Menu***
 ====
 - Dashboard
-- Surat
-  - Surat Sakit
-  - Surat Sehat
-  - Surat Hamil
+- Master
+  - Berkas
+  - Ip Address
+- Support
+  - Troubleshoot
+- Notulen
 - Setting
   - User
   - Level
