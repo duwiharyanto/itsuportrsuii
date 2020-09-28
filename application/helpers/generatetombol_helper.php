@@ -28,9 +28,13 @@
 		}
 		if($global->download){
 			echo '
-			<a href="javascript:void(0)"  url="'.site_url($global->url.'/previewfile/'.$berkasfile).'" class="preview btn btn-primary btn-circle" data-toggle="tooltip" title="">
+			<a href="javascript:void(0)"  url="'.site_url($global->url.'/previewfile/'.$berkasfile).'" class="preview btn btn-primary btn-circle" data-toggle="tooltip" title="Download">
 				<i class="fa fa-download"></i>
 			</a>';
+			echo '
+			<button type="button"  id="'.$rowid.'" url="'.base_url($global->url.'send').'" class="sendemail btn btn-danger btn-circle" data-toggle="tooltip" title="Kirim Email">
+				<i class="fa fa-envelope"></i>
+			</button>';			
 		}		
 	}
 ?>

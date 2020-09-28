@@ -164,7 +164,7 @@
                 ?>
             </div>
             <!-- /.container-fluid -->
-            <footer class="footer text-center"> <?=date('Y')?> &copy; <a href="mailto:haryanto.duwi@gmail.com">haryanto.duwi@gmail.com</a> </footer>
+            <footer class="footer text-center"> <?=BANNER_FOOTER?> </footer>
         </div>
         <!-- /#page-wrapper -->
     </div>

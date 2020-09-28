@@ -11,7 +11,6 @@
     validasi();
     hapus();
     detail();
-    
     $('.datepicker').datepicker({
         autoclose: true,
         todayHighlight: true,

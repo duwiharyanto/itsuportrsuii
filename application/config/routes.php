@@ -55,3 +55,5 @@ $route['translate_uri_dashes'] = FALSE;
 
 //FRONTEND PUBLIC
 $route['berkas'] = 'Public/Berkas';
+$route['Aduan'] = 'Front/Aduan';
+$route['uploadberkas'] = 'Upload/upload';

@@ -25,7 +25,7 @@
 								</div>								
 								<div class="form-group">
 									<label>Deskripsi</label>
-									<textarea required class="form-control" name="troubleshoot_deskripsi" rows="8"></textarea>
+									<textarea  required class="summernote form-control" name="troubleshoot_deskripsi" rows="8"></textarea>
 								</div>
 								<div class="form-group">
 									<label>Foto</label>
@@ -49,4 +49,13 @@
 	</div> 
 </div>
 <?php include 'action.php';?>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+  		$('.summernote').summernote({
+		  height: 300,   //set editable area's height
+		  codemirror: { // codemirror options
+		    theme: 'monokai'
+		  }  			
+  		});
+	});
+</script>

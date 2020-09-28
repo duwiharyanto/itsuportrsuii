@@ -86,4 +86,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 //USER DEFINED
 defined('EMAIL_DUWI') OR define('EMAIL_DUWI', 'haryanto.duwi@gmail.com');
-defined('BANNER_FOOTER') OR define('BANNER_FOOTER', DATE('Y').'&copy; created with <span class="text-danger fa fa-heart"></span> from jogja, by haryanto.duwi');
+defined('BANNER_FOOTER') OR define('BANNER_FOOTER', DATE('Y').'<br> Created with <span class="text-danger fa fa-heart"></span> by <a href="https://duwiharyanto.github.io/" target="_blank"> duwiharyanto.github.io</a>');

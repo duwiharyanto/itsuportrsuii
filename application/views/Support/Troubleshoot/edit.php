@@ -29,11 +29,11 @@
 								</div>								
 								<div class="form-group">
 									<label>Deskripsi</label>
-									<textarea readonly required class="form-control" name="troubleshoot_deskripsi" rows="8"><?=$data->troubleshoot_deskripsi?></textarea>
+									<textarea readonly required class="form-control summernote" name="troubleshoot_deskripsi" rows="8"><?=$data->troubleshoot_deskripsi?></textarea>
 								</div> 
 								<div class="form-group">
 									<label>Catatan</label>
-									<textarea required class="form-control" name="troubleshoot_catatan" rows="8"><?=$data->troubleshoot_catatan?></textarea>
+									<textarea required class="form-control summernote" name="troubleshoot_catatan" rows="8"><?=$data->troubleshoot_catatan?></textarea>
 								</div> 
 								<div class="form-group">
 									<label>Status Tempat Tinggal</label>
@@ -63,3 +63,13 @@
 	</div> 
 </div>
 <?php include 'action.php'?>
+<script type="text/javascript">
+	$(document).ready(function() {
+  		$('.summernote').summernote({
+		  height: 300,   //set editable area's height
+		  codemirror: { // codemirror options
+		    theme: 'monokai'
+		  }  			
+  		});
+	});
+</script>

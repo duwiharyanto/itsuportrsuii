@@ -87,13 +87,20 @@ class Dashboard extends CI_Controller {
 		$r_loginharian=$this->Crud->hardcode($userloginharian)->result_array();		
 		$qtroubel="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal, COUNT(*) AS jumlah From troubleshoot GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 7";
 		$r_trobel=$this->Crud->hardcode($qtroubel)->result_array();
+		$qtroubelsistem="select DATE_FORMAT(created_at,'%d-%m-%Y') AS tanggal, COUNT(*) AS jumlah From trobelsistem GROUP BY DATE_FORMAT(created_at,'%Y%m%d') ORDER BY created_at DESC LIMIT 7";		
+		$r_trobelsistem=$this->Crud->hardcode($qtroubelsistem)->result_array();
 		$qstatus="select b.status_status AS status, COUNT(*) AS jumlah From troubleshoot a JOIN 
 			status b ON b.status_id=troubleshoot_idstatus GROUP BY a.troubleshoot_idstatus";
 		$r_status=$this->Crud->hardcode($qstatus)->result_array();
+		$qstatussistem="select b.status_status AS status, COUNT(*) AS jumlah From trobelsistem a JOIN 
+			status b ON b.status_id=trobelsistem_idstatus GROUP BY a.trobelsistem_idstatus";
+		$r_statussistem=$this->Crud->hardcode($qstatussistem)->result_array();		
 		$data=[
 			$r_loginharian,
 			$r_trobel,
 			$r_status,
+			$r_trobelsistem,
+			$r_statussistem
 		];	
 		$this->output->set_output(json_encode($data));
 	}
@@ -107,6 +114,9 @@ class Dashboard extends CI_Controller {
 		$trobelshoot=[
 			'tabel'=>'troubleshoot',
 		];
+		$sistem=[
+			'tabel'=>'trobelsistem',
+		];		
 		$notulen=[
 			'tabel'=>'notulen',
 		];
@@ -114,6 +124,7 @@ class Dashboard extends CI_Controller {
 			'global'=>$global,
 			'jumtroubleshoot'=>count($this->Crud->read($trobelshoot)->result()),
 			'jumnotulen'=>count($this->Crud->read($notulen)->result()),
+			'jumsistem'=>count($this->Crud->read($sistem)->result()),
 			// 'grafikloginuser'=>$grafikloginuser,
 			// 'grafikregistrasi'=>$grafikregistrasi,
 			// 'kegiatan'=>$r_kegiatan,

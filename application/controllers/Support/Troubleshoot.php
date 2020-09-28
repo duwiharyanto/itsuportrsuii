@@ -79,7 +79,7 @@ class Troubleshoot extends CI_Controller {
 	public function index()
 	{
 		$global_set=array(
-			'headline'=>'troubleshoot Sistem',
+			'headline'=>'Troubleshoot',
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
@@ -420,6 +420,52 @@ class Troubleshoot extends CI_Controller {
 		}
 		//return $this->output->set_output(json_encode($dt));
 		redirect(site_url($this->default_url));
-	}			
+	}
+    public function writedata(){
+    	// $data=[
+    	// 	'name'=>'duwi',
+    	// 	'message'=>'Selamat datang',
+    	// ];
+    	$q=[
+    		'tabel'=>'chat',
+    	];
+    	$data=$this->Crud->read($q)->result_array();
+    	return $data;
+    }	
+	public function chat(){
+		$global_set=array(
+			'headline'=>'troubleshoot Sistem',
+			'url'=>$this->default_url,
+			'overwriteview'=>'views/Support/Troubleshoot/Chat.php',
+			'menu_submenu'=>false
+		);
+		$pathserver=base_url('Support');
+		$global=$this->global_set($global_set);		
+		$data=array(
+			'global'=>$global,
+			'server'=>$pathserver,
+			'menu'=>$this->duwi->menu_backend($this->session->userdata('user_level')),
+		);
+		$dt=$this->writedata();
+		$message = json_encode($dt);
+		$pathfile="./chat/data.json";
+		$data_source_file = fopen($pathfile, "w+");		
+		fwrite($data_source_file, $message);
+		fclose($data_source_file);		
+		$this->load->view($this->view,$data);		
+	}
+	public function write(){
+		$pathfile="./chat/data.json";
+		$data_source_file = fopen($pathfile, "w+");
+
+		$_POST['message'] = strip_tags($_POST['message']);
+		$_POST['name'] = strip_tags($_POST['name']);
+
+		$message = json_encode($_POST);	
+
+		fwrite($data_source_file, $message);
+		fclose($data_source_file);		
+	}
+
 }
 		

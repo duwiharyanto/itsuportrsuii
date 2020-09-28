@@ -7,6 +7,7 @@
     }); 
   $(document).ready(function(){   
     edit(); 
+    sendemail();
     validasi();  
     hapus();
     $('.select').select2(); 
@@ -66,6 +67,27 @@
       return false;        
     })
   }
+  function sendemail(){   
+    $('.sendemail').click(function(){
+      var url=$(this).attr('url');
+      var id=$(this).attr('id');
+      //alert(id);
+      $.ajax({
+        type:'POST',
+        url:url,
+        data:{id:id},
+        success:function(data){
+          var param={
+            status:'success',
+            msg:'simpan berhasil',
+          };
+         
+          notifikasi(param);       
+        }
+      })
+      return false;        
+    })
+  }  
   function validasi(){
     $("#forminput").validate({
     errorPlacement: function ( error, element ) {

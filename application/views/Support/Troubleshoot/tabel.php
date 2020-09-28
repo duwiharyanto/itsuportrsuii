@@ -23,16 +23,16 @@
         <div class="panel-wrapper collapse in">
           <div class="panel-body">
             <div class="table-responsive">
-                <table id="example23" class="display nowrap table table-striped" cellspacing="0" width="100%">
+                <table id="example23" class="display  table table-striped" cellspacing="0" width="100%">
                   <thead>
                     <tr >
-                      <th >No</th>
+                      <th width="5%">No</th>
                       <th class="text-center" width="10%">Status</th>
-                      <th >Ticket</th>
-                      <th >Trouble</th>
-                      <th >Deskripsi</th>
-                      <th >Catatan</th>
-                      <th class="text-center">Aksi</th>
+                      <th width="5%">Ticket</th>
+                      <th width="15%">Trouble</th>
+                      <th width="30%">Deskripsi</th>
+                      <th width="25%">Catatan</th>
+                      <th class="text-center" width="15%">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -41,11 +41,11 @@
                     <tr>
                       <td><?=$i?></td>
                       <td class="text-center"><?=($row->troubleshoot_idstatus==1 ? '<span class="badge badge-danger">'.ucwords($row->status_status).'</span>':($row->troubleshoot_idstatus==2 ? '<span class="badge badge-success">'.ucwords($row->status_status).'</span>':($row->troubleshoot_idstatus==3 ? '<span class="badge badge-warning">'.ucwords($row->status_status).'</span>':($row->troubleshoot_idstatus==4 ? '<span class="badge badge-info">'.ucwords($row->status_status).'</span>':'error'))))?></td>
-                      <td><?=ucwords($row->troubleshoot_ticket)?></td>                      
+                      <td><a href="javascript:void(0)" id="<?=$row->troubleshoot_id?>" url="<?= base_url($global->url.'edit')?>" class="edit"><?=ucwords($row->troubleshoot_ticket)?></a></td>                      
                       <td><?=ucwords($row->troubleshoot_nama)?><br><small class="text-danger">Di ajukan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?>
                         <br>Komputer : <?=ucwords($row->troubleshoot_komputer)?>
                         </small></td>
-                      <td><?=ucwords($row->troubleshoot_deskripsi)?></td>
+                      <td><?=word_limiter(ucwords($row->troubleshoot_deskripsi),7)?></td>
                       <td><?=ucwords($row->troubleshoot_catatan ? word_limiter($row->troubleshoot_catatan,5):'-')?><br><small>
                         <?=ucwords($row->troubleshoot_idpic ? 'Ditambahkan : '.$row->pic:'')?>
                       </small></td>

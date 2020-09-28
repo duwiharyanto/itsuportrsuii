@@ -143,10 +143,12 @@ class Notulen extends CI_Controller {
 		if(in_array($this->leveluser, $this->aksesadmin)){
 			$query=[
 				'tabel'=>$this->master_tabel,
+				'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
 			];			
 		}else{
 			$query=[
 				'tabel'=>$this->master_tabel,
+				'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
 				'where'=>[$this->id=>$this->iduser]
 			];		
 		}

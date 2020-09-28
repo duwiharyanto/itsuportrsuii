@@ -24,6 +24,7 @@
     <link href="<?=base_url()?>/plugins/css/colors/blue.css" id="theme" rel="stylesheet">
     <link href="<?=base_url()?>/plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url()?>/plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url()?>/plugins/summernote/summernote.css" rel="stylesheet" type="text/css" />
 
     <!-- jQuery -->
     <script src="<?=base_url()?>/plugins/bower_components/jquery/dist/jquery.min.js"></script>
@@ -64,6 +65,7 @@
     <!-- FormValidation plugin and the class supports validating Bootstrap form -->
     <script src="<?=base_url()?>/plugins/bower_components/jquery-wizard-master/libs/formvalidation/formValidation.min.js"></script>
     <script src="<?=base_url()?>/plugins/bower_components/jquery-wizard-master/libs/formvalidation/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>/plugins/summernote/summernote.js"></script>
 </head>
 
 <body>
@@ -81,15 +83,18 @@
                 <div class="top-left-part">
                     <a class="logo" href="<?=site_url()?>">
                         <!-- Logo icon image, you can use font-icon also -->
-                        <b><img src="<?=base_url()?><?=$this->session->userdata('atributsistem_logo') ? 'upload/sistem/'.$this->session->userdata('atributsistem_logo'):'/plugins/images/logohead.png' ?>" alt="home" style="width: 40px;height: 40px"/></b>
+                        <b><img src="<?=base_url()?><?=$this->session->userdata('atributsistem_logo') ? 'upload/sistem/'.$this->session->userdata('atributsistem_logo'):'/plugins/images/logohead.png' ?>" alt="home" style="width: 45px;height: 45px"/></b>
                         <!-- Logo text image you can use text also
                         <span class="hidden-xs"><img src="<?=base_url()?>/plugins/images/eliteadmin-text.png" alt="home" /></span>
                         -->
-                        <span class="hidden-xs"><span class="text-danger fa fa-heart"></span> <?=$this->session->userdata('atributsistem_namasistem') ? $this->session->userdata('atributsistem_namasistem'):'Dashboard' ?></span>
+                        <span class="hidden-xs">
+                            <!-- <span class="text-danger fa fa-heart"></span>  -->
+                        
+                        <?=$this->session->userdata('atributsistem_namasistem') ? $this->session->userdata('atributsistem_namasistem'):'Dashboard' ?></span>
                     </a>
                 </div>
                 <!-- /Logo -->
-                <!-- Search input and Toggle icon -->
+                <!-- Search input and Toggle icon 
                 <ul class="nav navbar-top-links navbar-left hidden-xs">
                     <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
                     <li>
@@ -99,6 +104,7 @@
                         </form>
                     </li>
                 </ul>
+                -->
                 <!-- This is the message dropdown -->
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <!-- .Task dropdown -->

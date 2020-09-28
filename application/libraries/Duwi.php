@@ -199,8 +199,8 @@ class Duwi {
 	public function fileupload($path,$file){
 		$config=array(
 			'upload_path'=>$path,
-			'allowed_types'=>'xlsx|pdf',
-			'max_size'=>5000, //5MN
+			'allowed_types'=>'xlsx|pdf|docx|doc|jpg|jpeg|zip|rar',
+			'max_size'=>5000, //5MB
 			'encrypt_name'=>true, //ENCTYPT
 		);
 		$this->_CI->load->library('upload',$config);

@@ -81,6 +81,7 @@ class User extends CI_Controller {
 				'user_username'=>$this->input->post('user_username'),
 				'user_password'=>md5($this->input->post('user_password')),
 				'user_level'=>$this->input->post('user_level'),
+				'user_status'=>1,	
 			);
 			########################################################
 			// $file='user_foto';

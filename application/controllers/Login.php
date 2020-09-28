@@ -16,35 +16,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function index(){
 			$this->duwi->ceklogin();
 			$data=[
-				'url'=>'login',
+				'url'=>'Login',
+				'selfregister'=>false,
 				'onsubmit'=>'login/proseslogin',
 				'onsignup'=>'login/signup',
 			];
 			
 			$this->load->view('_template/_login',$data);
 		}
-		// public function signup(){
-		// 	$data=[
-		// 		'user_username'=>$this->input->post('user_username'),
-		// 		'user_password'=>md5($this->input->post('user_password')),
-		// 		'user_email'=>$this->input->post('user_email'),
-		// 		'user_nama'=>$this->input->post('user_nama'),
-		// 		'user_level'=>'',
-		// 	];
-		// 	$query=array(
-		// 		'data'=>his->security->xss_clean($data),
-		// 		'tabel'=>$this->master_tabel,
-		// 	);
-		// 	$insert=$this->Crud->insert($query);
-		// 	if($insert){
-		// 		$this->session->set_flashdata('success','pendaftaran berhasil, silahkan menunggu verifikasi admin');	
-		// 		$dt['success']='update data berhasil';
-		// 	}else{
-		// 		$this->session->set_flashdata('error','pendaftaran gagal');	
-		// 		$dt['error']='input data error';
-		// 	}
-		// 	return $this->output->set_output(json_encode($dt));					
-		// }		
+		public function register(){
+			$this->duwi->ceklogin();
+			$data=[
+				'url'=>'Login',
+				'onsubmit'=>'login/proseslogin',
+				'onsignup'=>'login/signup',
+			];
+			
+			$this->load->view('_template/_register',$data);			
+		}
+		public function signup(){
+			$data=[
+				'user_username'=>$this->input->post('user_username'),
+				'user_password'=>md5($this->input->post('user_password')),
+				'user_email'=>$this->input->post('user_email'),
+				'user_nama'=>$this->input->post('user_nama'),
+				'user_level'=>'6',
+				'user_status'=>'1',
+			];
+			$query=array(
+				'data'=>$this->security->xss_clean($data),
+				'tabel'=>$this->master_tabel,
+			);
+			$q_cekuser=array(
+				'tabel'=>$this->master_tabel,
+				'where'=>[['user_username'=>$data['user_username']]]
+			);
+			if(!$this->Crud->read($q_cekuser)->row()){
+				$insert=$this->Crud->insert($query);
+				if($insert){
+					$dt=[
+						'status'=>'success',
+						'msg'=>'pendaftaran berhasil, silahkan login',
+					];
+				}else{
+					$dt=[
+						'status'=>'danger',
+						'msg'=>'pendaftaran gagal, terjadi kesalahan',
+					];
+				}
+			}else{
+					$dt=[
+						'status'=>'danger',
+						'msg'=>'pendaftaran gagal,user sudah dipakai',
+					];				
+			}
+			return $this->output->set_output(json_encode($dt));					
+		}		
 		public function proseslogin(){
 			$username=$this->input->post('username');
 			$password=md5($this->input->post('password'));

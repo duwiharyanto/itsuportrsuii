@@ -452,7 +452,7 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
 $exludecsrf=array('notulen/index/upload_image','notulen/index/edit','notulen/index/add',
-'catatan/catatan/upload_image','catatan/catatan/edit','catatan/catatan/add','Setting/backup','Setting/backup/filemanager',
+'catatan/catatan/upload_image','catatan/catatan/edit','catatan/catatan/add','Setting/backup','Setting/backup/filemanager','Support/Troubleshoot/write','Support/sistem/','Support/sistem/previewfile/','Support/sistem/index/previewfile/','Support/sistem/tabel/'
 );
 $config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_test_name';

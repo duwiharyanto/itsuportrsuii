@@ -15,7 +15,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;	
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx as writer;
 
-class User extends CI_Controller {
+class Profil extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		
