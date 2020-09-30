@@ -48,9 +48,18 @@
     	var tglmulai=$('[name=tglmulai]').val();
     	var tglselesai=$('[name=tglselesai]').val();
     	var url=$(btn).attr('url');
-    	url=url+'/'+tglmulai+'/'+tglselesai
-		window.open(
-		url,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')       
-    }	    	
+    	$.ajax({
+    		type:'POST',
+        dataType:'json',
+    		url:url,
+    		data:{tglmulai:tglmulai,tglselesai:tglselesai},
+    		success:function(data){
+       //    var text='<iframe src="'+data.pdf+'" title="W3Schools Free Online Web Tutorials" width="100%" height="500px" style="border:none;"></iframe> '
+    			// $("#view").html(text);
+        window.open(
+          data.pdf,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no')                  
+    		}
+    	})       
+    }  	    	
 </script>
 <?php include 'action.php';?>

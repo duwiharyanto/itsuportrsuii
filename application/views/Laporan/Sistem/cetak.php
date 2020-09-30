@@ -36,7 +36,7 @@
       <tr>
         <td><?=$i?></td>
         <td class="text-center"><?=($row->trobelsistem_idstatus==1 ? '<span class="badge badge-danger">'.ucwords($row->status_status).'</span>':($row->trobelsistem_idstatus==2 ? '<span class="badge badge-success">'.ucwords($row->status_status).'</span>':($row->trobelsistem_idstatus==3 ? '<span class="badge badge-warning">'.ucwords($row->status_status).'</span>':($row->trobelsistem_idstatus==4 ? '<span class="badge badge-info">'.ucwords($row->status_status).'</span>':($row->trobelsistem_idstatus==5 ? '<span class="badge badge-warning">'.ucwords($row->status_status).'</span>':($row->trobelsistem_idstatus==6 ? '<span class="badge badge-primary">'.ucwords($row->status_status).'</span>':'error'))))))?></td>
-        <td><a href="javascript:void(0)" id="<?=$row->trobelsistem_id?>" url="<?= base_url($global->url.'edit')?>" class="edit"><?=ucwords($row->trobelsistem_ticket)?></a></td>                      
+        <td><a href="javascript:void(0)"><?=ucwords($row->trobelsistem_ticket)?></a></td>                      
         <td><?=ucwords($row->trobelsistem_nama)?><br><small class="text-danger">Di ajukan oleh :<?=ucwords($row->user_nama)?><br>Disimpan : <?=date('d-m-Y',strtotime($row->created_at))?>
         <br>Lokasi : <?=ucwords($row->unit_nama)?>
       </small></td>

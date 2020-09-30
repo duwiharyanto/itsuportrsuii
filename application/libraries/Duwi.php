@@ -302,6 +302,62 @@ class Duwi {
 		$mpdf->WriteHTML($data['view']);
 		$mpdf->Output($nama_dokumen.".pdf",'I');		
 	}
+	public function prosescetakajax($data){
+		if(isset($data['kertas'])){
+			$kertas=$data['kertas'];
+		}else{
+			$kertas='A4';
+		}
+		$judul=str_replace(' ', '-', $data['judul']);
+		$nama_dokumen=$judul.".pdf"; //Beri nama file PDF hasil.
+		require_once('./plugins/mpdf7/vendor/autoload.php');
+		$mpdf = new \Mpdf\Mpdf([
+		    'mode' => 'utf-8',
+		    'margin_right'=>'20',
+		    'margin_left'=>'20',
+		    'margin_bottom'=>'20',
+		    'margin_top'=>'20',
+		    // 'format' => [190, 236],
+		    'format' => $kertas,
+		    //'orientation' => 'P'
+		]);
+		//$mpdf->SetTitle('Cetak Laporan');		
+		// $mpdf->WriteHTML('<h1>Hello world!</h1>');
+		// $mpdf->Output();
+		//$mpdf= new \Mpdf\Mpdf('c','A4-Pa','',0,20,20,20,20);	
+		
+		// $mpdf->SetHTMLHeader('
+		// <div style="text-align: left; font-weight: bold;">
+		//     <img src="./assets/img/logohead.png" width="60px" height="60px">'.$nama_dokumen.'
+		// </div>');
+		$mpdf->SetHTMLFooter('
+		<table width="100%">
+		    <tr>
+		        <td width="33%">{DATE j-m-Y}</td>
+		        <td width="33%" align="center">{PAGENO}/{nbpg}</td>
+		        <td width="33%" style="text-align: right;">'.$nama_dokumen.'</td>
+		    </tr>
+		</table>');		
+		$mpdf->WriteHTML($data['view']);
+		$mpdf->Output(FCPATH."/upload/laporan/sistem/".$nama_dokumen,"F");	
+		return base_url("/upload/laporan/sistem/".$nama_dokumen);	
+	}
+	public function cetakpdf(){
+		require_once('./plugins/mpdf7/vendor/autoload.php');
+		$mpdf = new \Mpdf\Mpdf([
+		    'mode' => 'utf-8',
+		    'margin_right'=>'20',
+		    'margin_left'=>'20',
+		    'margin_bottom'=>'20',
+		    'margin_top'=>'20',
+		    // 'format' => [190, 236],
+		    'format' => 'A4',
+		    //'orientation' => 'P'
+		]);
+		$mpdf->WriteHTML('Hello World');
+		$nama_dokumen='filepdf.pdf';
+		$mpdf->Output(FCPATH."/upload/laporan/sistem/".$nama_dokumen,F);		
+	}		
 	public function qrcode($param){
 		$dir= "./barcode/";
 		include "./assets/phpqrcode/qrlib.php"; 

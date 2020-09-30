@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">       
       <div class="panel panel-default">
-        <div class="panel-heading">&nbsp
+        <div class="panel-heading"><p class="badge badge-primary">Laporan : <?=count($data)?></p>
           <div class="panel-action">
               <div class="dropdown"> <a class="dropdown-toggle" id="examplePanelDropdown" data-toggle="dropdown" href="#" aria-expanded="false" role="button">Option <span class="caret"></span></a>
                   <ul class="dropdown-menu bullet dropdown-menu-right" aria-labelledby="examplePanelDropdown" role="menu">
@@ -23,7 +23,7 @@
         <div class="panel-wrapper collapse in">
           <div class="panel-body">
             <div class="table-responsive">
-
+                
                 <table id="example23" class="display  table table-striped" cellspacing="0" width="100%">
                   <thead>
                     <tr >

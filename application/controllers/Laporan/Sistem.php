@@ -348,14 +348,53 @@ class Sistem extends CI_Controller {
 		];
 		$this->duwi->prosescetak($cetak);
 	}
-	public function cetakbytanggal($tglmulai,$tglselesai){
+	// public function cetakbytanggal($tglmulai,$tglselesai){
+	// 	$global_set=array(
+	// 		'headline'=>'Daftar laporan sistem',
+	// 		'url'=>$this->default_url,
+	// 	);
+	// 	$global=$this->global_set($global_set);
+	// 	$tglmulai=date('Y-m-d',strtotime($tglmulai));
+	// 	$tglselesai=date('Y-m-d',strtotime($tglselesai));
+	// 	if(in_array($this->leveluser, $this->aksesadmin)){
+	// 		$query='select a.*,b.user_nama,c.status_status,d.user_nama AS pic,e.unit_nama from trobelsistem a 
+	// 			JOIN user b ON b.user_id=a.trobelsistem_iduser
+	// 			JOIN status c ON c.status_id=a.trobelsistem_idstatus
+	// 			LEFT JOIN user d ON d.user_id=a.trobelsistem_idpic
+	// 			JOIN unit e ON e.unit_id=a.trobelsistem_unitid
+	// 			WHERE a.created_at BETWEEN "'.$tglmulai.'" AND "'.$tglselesai.'"
+	// 			ORDER BY a.trobelsistem_id DESC';			
+	// 	}else{
+	// 		$query='select a.*,b.user_nama,c.status_status,d.user_nama AS pic,e.unit_nama from trobelsistem a 
+	// 			JOIN user b ON b.user_id=a.trobelsistem_iduser
+	// 			JOIN status c ON c.status_id=a.trobelsistem_idstatus
+	// 			LEFT JOIN user d ON d.user_id=a.trobelsistem_idpic
+	// 			JOIN unit e ON e.unit_id=a.trobelsistem_unitid
+	// 			WHERE a.created_at BETWEEN "'.$tglmulai.'" AND "'.$tglselesai.'" AND a.trobelsistem_iduser="'.$this->iduser.'"
+	// 			ORDER BY a.trobelsistem_id DESC';		
+	// 	}		
+	// 	$data=array(
+	// 		'global'=>$global,
+	// 		'data'=>$this->Crud->hardcode($query)->result(),
+	// 		'deskripsi'=>'dicetak dari sistem tanggal '.date('d-m-Y'),
+	// 		'atributsistem'=>$this->duwi->atributsistem(),
+	// 	);
+	// 	$view=$this->load->view($this->default_view.'cetak',$data,true);
+	// 	$cetak=[
+	// 		'judul'=>$global_set['headline'],
+	// 		'view'=>$view,
+	// 		'kertas'=>'A4-l',
+	// 	];
+	// 	$this->duwi->prosescetakajax($cetak);
+	// }
+	public function cetakbytanggal(){
 		$global_set=array(
 			'headline'=>'Daftar laporan sistem',
 			'url'=>$this->default_url,
 		);
 		$global=$this->global_set($global_set);
-		$tglmulai=date('Y-m-d',strtotime($tglmulai));
-		$tglselesai=date('Y-m-d',strtotime($tglselesai));
+		$tglmulai=date('Y-m-d',strtotime($this->input->post('tglmulai')));
+		$tglselesai=date('Y-m-d',strtotime($this->input->post('tglselesai')));
 		if(in_array($this->leveluser, $this->aksesadmin)){
 			$query='select a.*,b.user_nama,c.status_status,d.user_nama AS pic,e.unit_nama from trobelsistem a 
 				JOIN user b ON b.user_id=a.trobelsistem_iduser
@@ -385,8 +424,10 @@ class Sistem extends CI_Controller {
 			'view'=>$view,
 			'kertas'=>'A4-l',
 		];
-		$this->duwi->prosescetak($cetak);
-	}	
+		$pdf=$this->duwi->prosescetakajax($cetak);
+		return $this->output->set_output(json_encode(compact('pdf')));
+		//return $this->duwi->prosescetakajax($cetak);
+	}		
 	public function cari(){
 		$tglmulai=date('Y-m-d',strtotime($this->input->post('tglmulai')));
 		$tglselesai=date('Y-m-d',strtotime($this->input->post('tglselesai')));
